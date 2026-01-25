@@ -40,7 +40,7 @@ export const App: React.FC = () => {
   const [showStickyBtn, setShowStickyBtn] = useState(false);
 
   const handlePlanSelect = (plan: Plan) => {
-    window.open('http://pf.kakao.com/_yxbeyn/chat', '_blank');
+    window.open('https://pf.kakao.com/_yxbeyn/chat', '_blank');
   };
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export const App: React.FC = () => {
           </p>
           <div className="pt-4">
             <a 
-              href="http://pf.kakao.com/_yxbeyn/chat" 
+              href="https://pf.kakao.com/_yxbeyn/chat" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-block bg-brand-red text-white font-bold text-lg px-8 py-4 rounded-full shadow-[0_0_30px_rgba(255,0,0,0.4)] hover:scale-105 transition-transform"
@@ -163,7 +163,7 @@ export const App: React.FC = () => {
         }`}
       >
         <a
-          href="http://pf.kakao.com/_yxbeyn/chat"
+          href="https://pf.kakao.com/_yxbeyn/chat"
           target="_blank"
           rel="noopener noreferrer"
           className="pointer-events-auto bg-brand-red text-white font-bold text-lg px-10 py-3 rounded-full shadow-[0_4px_30px_rgba(255,0,0,0.5)] hover:bg-red-600 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-white/10 backdrop-blur-md"
