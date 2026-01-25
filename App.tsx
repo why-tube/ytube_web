@@ -4,8 +4,6 @@ import { PricingCard } from './components/PricingCard';
 import { Plan } from './types';
 
 // Placeholder Spline URL. 
-// In a real scenario, the user would replace 'undefined' with their actual URL.
-// We use a cool abstract shape here for demo purposes if undefined.
 const SPLINE_URL = "https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode";
 
 const PLANS: Plan[] = [

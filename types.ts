@@ -7,10 +7,3 @@ export interface Plan {
   features: string[];
   bestValue?: boolean;
 }
-
-export interface ChatMessage {
-  id: string;
-  role: 'user' | 'model';
-  text: string;
-  isStreaming?: boolean;
-}
