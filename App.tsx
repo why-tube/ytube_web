@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SplineHero } from './components/SplineHero';
 import { PricingCard } from './components/PricingCard';
-import { SupportChat } from './components/SupportChat';
 import { Plan } from './types';
 
 // Placeholder Spline URL. 
@@ -146,9 +145,6 @@ export const App: React.FC = () => {
           <a href="#" className="hover:text-white transition">개인정보처리방침</a>
         </div>
       </footer>
-
-      {/* AI Chat Support */}
-      <SupportChat />
     </div>
   );
 };
