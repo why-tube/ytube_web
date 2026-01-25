@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SplineHero } from './components/SplineHero';
 import { PricingCard } from './components/PricingCard';
 import { Plan } from './types';
 
-// Updated Spline URL to the specific scene provided
+// Updated Spline URL to the Airbnb Icons scene
 const SPLINE_URL = "https://my.spline.design/airbnbicons-C39idtijswecON1TrtxnF89Y/";
 
 const PLANS: Plan[] = [
@@ -37,9 +37,21 @@ const PLANS: Plan[] = [
 ];
 
 export const App: React.FC = () => {
+  const [showStickyBtn, setShowStickyBtn] = useState(false);
+
   const handlePlanSelect = (plan: Plan) => {
     window.open('http://pf.kakao.com/_yxbeyn/chat', '_blank');
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show button after scrolling down 200px
+      setShowStickyBtn(window.scrollY > 200);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="relative min-h-screen font-sans text-white bg-black selection:bg-brand-red selection:text-white">
@@ -143,6 +155,23 @@ export const App: React.FC = () => {
           <a href="#" className="hover:text-white transition">개인정보처리방침</a>
         </div>
       </footer>
+
+      {/* Sticky Floating CTA Button */}
+      <div 
+        className={`fixed bottom-8 left-0 w-full flex justify-center z-50 pointer-events-none transition-all duration-500 transform ${
+          showStickyBtn ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
+        }`}
+      >
+        <a
+          href="http://pf.kakao.com/_yxbeyn/chat"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pointer-events-auto bg-brand-red text-white font-bold text-lg px-10 py-3 rounded-full shadow-[0_4px_30px_rgba(255,0,0,0.5)] hover:bg-red-600 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-white/10 backdrop-blur-md"
+        >
+          <i className="fa-brands fa-youtube"></i>
+          구독하기
+        </a>
+      </div>
     </div>
   );
 };
