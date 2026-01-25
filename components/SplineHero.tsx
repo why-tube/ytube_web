@@ -1,13 +1,5 @@
 import React from 'react';
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'spline-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & { url?: string; 'loading-anim-type'?: string }, HTMLElement>;
-    }
-  }
-}
-
 interface SplineHeroProps {
   url: string;
 }
@@ -20,6 +12,7 @@ export const SplineHero: React.FC<SplineHeroProps> = ({ url }) => {
         Using the custom element defined in index.html script.
         We check if url is valid, otherwise use a fallback or placeholder 
       */}
+      {/* @ts-ignore */}
       <spline-viewer 
         url={url !== "undefined" ? url : "https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"} 
         loading-anim-type="spinner-small-dark"

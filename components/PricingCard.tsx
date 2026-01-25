@@ -7,7 +7,16 @@ interface PricingCardProps {
 }
 
 export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
-  const discount = Math.round(((plan.originalPrice - plan.price) / plan.originalPrice) * 100);
+  const isPriceNumber = typeof plan.price === 'number';
+  
+  // Calculate discount only if price is a number
+  const discount = isPriceNumber
+    ? Math.round(((plan.originalPrice - (plan.price as number)) / plan.originalPrice) * 100)
+    : null;
+
+  const priceDisplay = isPriceNumber 
+    ? `${(plan.price as number).toLocaleString()}원` 
+    : plan.price;
 
   return (
     <div 
@@ -19,19 +28,21 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
     >
       {plan.bestValue && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-red text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-          BEST VALUE
+          추천 상품
         </div>
       )}
       
       <div>
         <h3 className="text-xl font-bold text-gray-200">{plan.name}</h3>
         <div className="flex items-baseline gap-2 mt-2">
-          <span className="text-3xl font-black text-white">{plan.price.toLocaleString()}원</span>
+          <span className="text-3xl font-black text-white">{priceDisplay}</span>
           <span className="text-sm text-gray-500 line-through">{plan.originalPrice.toLocaleString()}원</span>
         </div>
-        <div className="mt-1 text-brand-red font-semibold text-sm">
-          {discount}% 할인
-        </div>
+        {discount !== null && (
+          <div className="mt-1 text-brand-red font-semibold text-sm">
+            {discount}% 할인
+          </div>
+        )}
       </div>
 
       <ul className="space-y-3 my-2">

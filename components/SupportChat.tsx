@@ -6,7 +6,7 @@ import { GenerateContentResponse } from "@google/genai";
 export const SupportChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { id: 'init', role: 'model', text: '안녕하세요! PremiumTube입니다. 무엇을 도와드릴까요? 😊' }
+    { id: 'init', role: 'model', text: '안녕하세요! 와이튜브입니다.. 무엇을 도와드릴까요? 😊' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);

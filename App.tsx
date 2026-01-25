@@ -13,9 +13,10 @@ const PLANS: Plan[] = [
   {
     id: 'monthly',
     name: '월간 이용권',
-    price: 3900,
+    price: "4,000원 ~ 5,000원",
     originalPrice: 14900,
     period: '월',
+    bestValue: true,
     features: [
       'YouTube Premium 혜택 100%',
       '광고 없는 영상 재생',
@@ -27,23 +28,20 @@ const PLANS: Plan[] = [
   {
     id: 'yearly',
     name: '1년 이용권',
-    price: 45000,
+    price: 50000,
     originalPrice: 178800,
     period: '년',
-    bestValue: true,
     features: [
       '월간 이용권의 모든 혜택',
-      '추가 할인 적용 (월 3,750원 꼴)',
-      '1년 동안 갱신 걱정 없음',
-      'VIP 우선 고객 지원',
-      '프리미엄 보증 서비스'
+      '추가 할인 적용',
+      '1년 동안 갱신 걱정 없음'
     ]
   }
 ];
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   const handlePlanSelect = (plan: Plan) => {
-    alert(`${plan.name}을(를) 선택하셨습니다. 결제 페이지로 이동합니다. (데모)`);
+    window.open('http://pf.kakao.com/_yxbeyn/chat', '_blank');
   };
 
   return (
@@ -55,11 +53,8 @@ const App: React.FC = () => {
       <nav className="fixed top-0 w-full z-40 px-6 py-4 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent backdrop-blur-[2px]">
         <div className="flex items-center gap-2">
           <i className="fa-brands fa-youtube text-brand-red text-2xl"></i>
-          <span className="font-bold text-lg tracking-tight">PremiumTube</span>
+          <span className="font-bold text-lg tracking-tight">와이튜브</span>
         </div>
-        <button className="text-sm font-medium bg-white/10 px-4 py-2 rounded-full backdrop-blur-md border border-white/10 hover:bg-white/20 transition">
-          로그인
-        </button>
       </nav>
 
       {/* Main Content */}
@@ -81,7 +76,12 @@ const App: React.FC = () => {
             공식 가격의 부담은 줄이고 혜택은 그대로.
           </p>
           <div className="pt-4">
-            <a href="#pricing" className="inline-block bg-brand-red text-white font-bold text-lg px-8 py-4 rounded-full shadow-[0_0_30px_rgba(255,0,0,0.4)] hover:scale-105 transition-transform">
+            <a 
+              href="http://pf.kakao.com/_yxbeyn/chat" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block bg-brand-red text-white font-bold text-lg px-8 py-4 rounded-full shadow-[0_0_30px_rgba(255,0,0,0.4)] hover:scale-105 transition-transform"
+            >
               지금 시작하기
             </a>
           </div>
@@ -131,7 +131,7 @@ const App: React.FC = () => {
           <p className="text-gray-400 text-sm">
             모든 디바이스에서 완벽하게 호환됩니다.
             <br />
-            계정 정지 걱정 없는 안전한 가족 공유 방식.
+            구독 도중 계정 이상 발생 시 남은 기간 100% 환불 보장.
           </p>
         </section>
 
@@ -139,7 +139,7 @@ const App: React.FC = () => {
 
       {/* Footer */}
       <footer className="relative z-10 w-full bg-black py-10 border-t border-white/10 text-center text-gray-600 text-xs">
-        <p className="mb-2">© 2024 PremiumTube. All rights reserved.</p>
+        <p className="mb-2">© 2025 와이튜브. All rights reserved.</p>
         <p>본 서비스는 YouTube의 공식 서비스가 아닌 리셀러 서비스입니다.</p>
         <div className="mt-4 flex justify-center gap-4">
           <a href="#" className="hover:text-white transition">이용약관</a>
@@ -152,5 +152,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default App;
