@@ -3,8 +3,8 @@ import { SplineHero } from './components/SplineHero';
 import { PricingCard } from './components/PricingCard';
 import { Plan } from './types';
 
-// Placeholder Spline URL. 
-const SPLINE_URL = "https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode";
+// Updated Spline URL to the specific scene provided
+const SPLINE_URL = "https://my.spline.design/airbnbicons-C39idtijswecON1TrtxnF89Y/";
 
 const PLANS: Plan[] = [
   {
