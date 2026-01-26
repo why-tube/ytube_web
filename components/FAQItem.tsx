@@ -3,9 +3,10 @@ import React, { useState, useRef } from 'react';
 interface FAQItemProps {
   question: string;
   answer: string;
+  themeColor: string;
 }
 
-export const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
+export const FAQItem: React.FC<FAQItemProps> = ({ question, answer, themeColor }) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -15,10 +16,16 @@ export const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
         className="w-full py-5 flex justify-between items-center text-left group bg-transparent hover:bg-white/5 px-4 -mx-4 rounded-lg transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className={`font-medium text-base transition-colors ${isOpen ? 'text-brand-red' : 'text-gray-200 group-hover:text-white'}`}>
-          <span className="text-brand-red mr-2">Q.</span>{question}
+        <span 
+          className={`font-medium text-base transition-colors ${isOpen ? '' : 'text-gray-200 group-hover:text-white'}`}
+          style={{ color: isOpen ? themeColor : undefined }}
+        >
+          <span className="mr-2" style={{ color: themeColor }}>Q.</span>{question}
         </span>
-        <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${isOpen ? 'bg-brand-red text-white rotate-180' : 'bg-white/5 text-gray-500'}`}>
+        <div 
+          className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${isOpen ? 'text-white rotate-180' : 'bg-white/5 text-gray-500'}`}
+          style={{ backgroundColor: isOpen ? themeColor : undefined }}
+        >
             <i className="fa-solid fa-chevron-down text-[10px]"></i>
         </div>
       </button>

@@ -4,9 +4,14 @@ import { Plan, Region } from '../types';
 interface PricingCardProps {
   plan: Plan;
   onSelect: (plan: Plan, region: Region) => void;
+  themeColor: string;
+  toggleLabels: {
+    left: string;
+    right: string;
+  };
 }
 
-export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
+export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeColor, toggleLabels }) => {
   const [region, setRegion] = useState<Region>('KOREA');
   const currentOption = plan.options[region];
   
@@ -14,17 +19,26 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
     ((currentOption.originalPrice - currentOption.price) / currentOption.originalPrice) * 100
   );
 
+  // Dynamic style for theme color
+  const themeStyle = {
+    '--theme-color': themeColor,
+  } as React.CSSProperties;
+
   return (
     <div 
       className={`relative p-1 rounded-2xl transition-transform duration-300 hover:scale-[1.02] ${
         plan.bestValue 
-          ? 'bg-gradient-to-b from-brand-red/50 to-transparent shadow-[0_0_40px_rgba(255,0,0,0.2)]' 
+          ? 'bg-gradient-to-b from-[var(--theme-color)] to-transparent shadow-[0_0_40px_rgba(var(--theme-rgb),0.2)]' 
           : 'bg-white/5'
       }`}
+      style={themeStyle}
     >
       <div className="relative h-full bg-[#111] rounded-xl p-6 flex flex-col gap-5 border border-white/10 overflow-hidden">
         {plan.bestValue && (
-          <div className="absolute top-0 right-0 bg-brand-red text-white text-xs font-bold px-3 py-1 rounded-bl-xl shadow-lg">
+          <div 
+            className="absolute top-0 right-0 text-white text-xs font-bold px-3 py-1 rounded-bl-xl shadow-lg"
+            style={{ backgroundColor: themeColor }}
+          >
             BEST CHOICE
           </div>
         )}
@@ -41,7 +55,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
               {currentOption.originalPrice.toLocaleString()}원
             </span>
           </div>
-          <div className="mt-1 inline-block px-2 py-0.5 rounded bg-brand-red/10 border border-brand-red/20 text-brand-red font-bold text-sm">
+          <div 
+            className="mt-1 inline-block px-2 py-0.5 rounded bg-white/10 border border-white/20 font-bold text-sm"
+            style={{ color: themeColor, borderColor: themeColor }}
+          >
             {discount}% SAVE
           </div>
         </div>
@@ -61,7 +78,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
               region === 'KOREA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
             }`}
           >
-            <span>🇰🇷</span> 한국
+            {toggleLabels.left}
           </button>
           <button
             onClick={() => setRegion('INDIA')}
@@ -69,7 +86,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
               region === 'INDIA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
             }`}
           >
-            <span>🇮🇳</span> 인도
+            {toggleLabels.right}
           </button>
         </div>
 
@@ -78,7 +95,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
           <ul className="space-y-3">
             {plan.features.map((feature, idx) => (
               <li key={idx} className="flex items-start gap-3 text-sm text-gray-300">
-                <i className="fa-solid fa-check text-brand-red mt-1"></i>
+                <i className="fa-solid fa-check mt-1" style={{ color: themeColor }}></i>
                 <span className="leading-tight">{feature}</span>
               </li>
             ))}
@@ -88,13 +105,13 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
         {/* CTA Button */}
         <button
           onClick={() => onSelect(plan, region)}
-          className={`w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-95 ${
-            plan.bestValue
-              ? 'bg-brand-red text-white hover:bg-red-600 shadow-lg shadow-red-900/30'
-              : 'bg-white text-black hover:bg-gray-200'
-          }`}
+          className={`w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-95 text-white shadow-lg hover:opacity-90`}
+          style={{ 
+            backgroundColor: themeColor,
+            boxShadow: plan.bestValue ? `0 10px 30px -10px ${themeColor}80` : 'none'
+          }}
         >
-          {region === 'KOREA' ? '한국 계정으로 시작' : '인도 계정으로 시작'}
+          {region === 'KOREA' ? `${toggleLabels.left}로 시작` : `${toggleLabels.right}로 시작`}
         </button>
       </div>
     </div>
