@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SplineHero } from './components/SplineHero';
 import { PricingCard } from './components/PricingCard';
+import { FAQItem } from './components/FAQItem';
 import { Plan, Region } from './types';
 
 // Updated Spline URL to the Airbnb Icons scene
@@ -55,6 +56,29 @@ const PLANS: Plan[] = [
       '가격 인상 걱정 없는 고정 요금',
       '프리미엄 전용 고객 지원'
     ]
+  }
+];
+
+const FAQS = [
+  {
+    q: "기존에 사용하던 계정을 그대로 쓸 수 있나요?",
+    a: "네, 가능합니다. 다만 개인정보 보호와 안전한 알고리즘 관리를 위해 '신규 계정' 생성을 강력히 권장드립니다. 기존 계정 사용 시 발생하는 계정 정지, 본인 인증 요구 등의 문제나 사후 관리에 대해서는 별도의 책임을 지지 않으므로, 가급적 유튜브 전용 계정을 새로 만들어 이용해 주시기 바랍니다."
+  },
+  {
+    q: "결제 후 이용까지 얼마나 걸리나요?",
+    a: "입금 확인 후 평균 30분 내로 처리가 완료되며, 계정 안정성 확보를 위해 일일 가입자 10명내로 제한하고 있습니다. 일일 가입자 한도 초과시 대기가 발생할 수 있다는 점 양해바랍니다. 카카오톡 상담 채널을 통해 실시간으로 안내해 드리고 있습니다."
+  },
+  {
+    q: "도중에 해지되거나 문제가 생기면 어떡하나요?",
+    a: "서비스 이용 중 문제가 발생할 경우 남은 기간에 대해 100% 환불을 보장해 드립니다."
+  },
+  {
+    q: "인도 계정과 한국 계정의 차이는 무엇인가요?",
+    a: "유튜브 영상 시청 및 광고 제거 기능은 전 세계 동일하게 적용됩니다. 다만 인도 계정의 경우 유튜브 뮤직 등 일부 부가 기능에서 차이가 있을 수 있습니다. 가장 안정적이고 편리한 사용을 원하신다면 한국 계정을 추천드립니다."
+  },
+  {
+    q: "아이폰, 안드로이드 모두 사용 가능한가요?",
+    a: "네, 기기 종류와 상관없이 모든 스마트폰(아이폰, 갤럭시 등), 태블릿, PC, 스마트 TV에서 동일하게 이용하실 수 있습니다."
   }
 ];
 
@@ -158,6 +182,20 @@ export const App: React.FC = () => {
           
           <div className="text-center text-xs text-gray-500 mt-4">
              * 모든 상품은 부가세가 포함된 가격입니다.
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="w-full space-y-8">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-2">자주 묻는 질문</h2>
+            <p className="text-gray-400 text-sm">궁금한 점을 확인해보세요</p>
+          </div>
+          
+          <div className="w-full">
+            {FAQS.map((faq, i) => (
+              <FAQItem key={i} question={faq.q} answer={faq.a} />
+            ))}
           </div>
         </section>
 
