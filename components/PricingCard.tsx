@@ -13,7 +13,10 @@ interface PricingCardProps {
 
 export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeColor, toggleLabels }) => {
   const [region, setRegion] = useState<Region>('KOREA');
-  const currentOption = plan.options[region];
+  
+  // If INDIA option doesn't exist, we fallback to KOREA (Family/Primary) and don't allow toggling
+  const hasMultipleOptions = !!plan.options.INDIA;
+  const currentOption = plan.options[region] || plan.options.KOREA;
   
   const discount = Math.round(
     ((currentOption.originalPrice - currentOption.price) / currentOption.originalPrice) * 100
@@ -63,32 +66,41 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
           </div>
         </div>
 
-        {/* Region Toggle */}
-        <div className="bg-white/5 p-1 rounded-lg flex relative">
-          {/* Animated Background Pill */}
-          <div 
-            className={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-white/10 rounded-md transition-all duration-300 ease-out ${
-              region === 'INDIA' ? 'translate-x-[calc(100%+4px)]' : 'translate-x-0'
-            }`}
-          />
-          
-          <button
-            onClick={() => setRegion('KOREA')}
-            className={`relative flex-1 py-2 text-sm font-medium rounded-md transition-colors z-10 flex items-center justify-center gap-2 ${
-              region === 'KOREA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
-            }`}
-          >
-            {toggleLabels.left}
-          </button>
-          <button
-            onClick={() => setRegion('INDIA')}
-            className={`relative flex-1 py-2 text-sm font-medium rounded-md transition-colors z-10 flex items-center justify-center gap-2 ${
-              region === 'INDIA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
-            }`}
-          >
-            {toggleLabels.right}
-          </button>
-        </div>
+        {/* Region Toggle - Only show if multiple options exist */}
+        {hasMultipleOptions ? (
+          <div className="bg-white/5 p-1 rounded-lg flex relative">
+            {/* Animated Background Pill */}
+            <div 
+              className={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-white/10 rounded-md transition-all duration-300 ease-out ${
+                region === 'INDIA' ? 'translate-x-[calc(100%+4px)]' : 'translate-x-0'
+              }`}
+            />
+            
+            <button
+              onClick={() => setRegion('KOREA')}
+              className={`relative flex-1 py-2 text-sm font-medium rounded-md transition-colors z-10 flex items-center justify-center gap-2 ${
+                region === 'KOREA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
+              }`}
+            >
+              {toggleLabels.left}
+            </button>
+            <button
+              onClick={() => setRegion('INDIA')}
+              className={`relative flex-1 py-2 text-sm font-medium rounded-md transition-colors z-10 flex items-center justify-center gap-2 ${
+                region === 'INDIA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
+              }`}
+            >
+              {toggleLabels.right}
+            </button>
+          </div>
+        ) : (
+          // Single option badge
+          <div className="flex">
+             <span className="text-sm font-medium text-white bg-white/10 px-3 py-1 rounded-md">
+                {currentOption.label}
+             </span>
+          </div>
+        )}
 
         {/* Features */}
         <div className="flex-1">
@@ -111,7 +123,9 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
             boxShadow: plan.bestValue ? `0 10px 30px -10px ${themeColor}80` : 'none'
           }}
         >
-          {region === 'KOREA' ? `${toggleLabels.left}로 시작` : `${toggleLabels.right}로 시작`}
+          {region === 'KOREA' 
+            ? `${toggleLabels.left}로 시작` 
+            : `${toggleLabels.right}로 시작`}
         </button>
       </div>
     </div>

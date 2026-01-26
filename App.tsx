@@ -64,8 +64,8 @@ const DUOLINGO_DATA: ServiceData = {
   name: '듀오링고',
   themeColor: '#58CC02',
   toggleLabels: {
-    left: '👥 패밀리',
-    right: '👤 개인'
+    left: '패밀리',
+    right: '개인'
   },
   hero: {
     badge: '🎓 평생 언어 학습 파트너',
@@ -85,15 +85,15 @@ const DUOLINGO_DATA: ServiceData = {
       period: '년',
       bestValue: true,
       options: {
-        INDIA: { price: 25000, originalPrice: 140000, label: '개인' }, // Mapping 'INDIA' key to 'Individual' logic for generic toggle structure
-        KOREA: { price: 15000, originalPrice: 140000, label: '패밀리' } // Mapping 'KOREA' key to 'Family Share' logic
+        // Removed INDIA (Individual) option
+        KOREA: { price: 30000, originalPrice: 69000, label: '패밀리' } // Maps to 'Family Share'
       },
       features: ['Super Duolingo의 모든 혜택 적용', '무제한 하트로 끊김 없는 학습', '광고 없는 쾌적한 환경', '오프라인 코스 다운로드', '입금 즉시 빠른 활성화']
     }
   ],
   faqs: [
     { q: "기존 듀오링고 계정을 그대로 쓸 수 있나요?", a: "네, 기존 사용하시던 계정에 Super 혜택만 적용해드립니다. 학습 기록, XP, 친구 목록 등 모든 데이터가 안전하게 유지됩니다." },
-    { q: "패밀리와 개인 플랜의 차이는 무엇인가요?", a: "기능상 차이는 전혀 없습니다. 패밀리 플랜은 저렴하게 공유받아 사용하는 방식이며, 개인 플랜은 독자적인 계정 관리가 가능합니다. 가성비를 원하신다면 패밀리를 추천합니다." },
+    { q: "패밀리 플랜은 무엇인가요?", a: "Super Duolingo 패밀리 요금제에 초대되어 저렴하게 이용하는 방식입니다. 기능상 차이는 전혀 없으며, 개인 계정의 프라이버시는 완벽하게 보호됩니다." },
     { q: "언어 제한이 있나요?", a: "아니요, 영어, 일본어, 중국어, 스페인어 등 듀오링고가 제공하는 모든 언어를 제한 없이 학습하실 수 있습니다." },
     { q: "결제 후 언제부터 사용 가능한가요?", a: "결제 완료 후 상담 채널로 계정 정보를 알려주시면 평균 10분 이내로 활성화 처리가 완료됩니다." },
     { q: "사용 중 문제가 발생하면 환불 되나요?", a: "서비스 이용 중 계정에 문제가 발생하고 해결이 불가능할 경우, 남은 기간에 대해 100% 환불 또는 새 계정 교체를 보장해 드립니다." }

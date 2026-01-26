@@ -13,7 +13,7 @@ export interface Plan {
   features: string[];
   bestValue?: boolean;
   options: {
-    INDIA: PricingOption;
+    INDIA?: PricingOption;
     KOREA: PricingOption;
   };
 }
