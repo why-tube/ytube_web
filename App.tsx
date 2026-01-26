@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SplineHero } from './components/SplineHero';
 import { PricingCard } from './components/PricingCard';
-import { Plan } from './types';
+import { Plan, Region } from './types';
 
 // Updated Spline URL to the Airbnb Icons scene
 const SPLINE_URL = "https://my.spline.design/airbnbicons-C39idtijswecON1TrtxnF89Y/";
@@ -9,29 +9,51 @@ const SPLINE_URL = "https://my.spline.design/airbnbicons-C39idtijswecON1TrtxnF89
 const PLANS: Plan[] = [
   {
     id: 'monthly',
-    name: '월간 이용권',
-    price: "4,000원 ~ 5,000원",
-    originalPrice: 14900,
+    name: '1개월 이용권',
     period: '월',
     bestValue: true,
+    options: {
+      INDIA: {
+        price: 4000,
+        originalPrice: 14900,
+        label: '인도'
+      },
+      KOREA: {
+        price: 5000,
+        originalPrice: 14900,
+        label: '한국'
+      }
+    },
     features: [
-      'YouTube Premium 혜택 100%',
-      '광고 없는 영상 재생',
-      '백그라운드 재생 및 저장',
-      'YouTube Music 무료 이용',
-      '즉시 활성화'
+      'YouTube Premium 100% 동일 혜택',
+      '광고 없는 쾌적한 영상 시청',
+      '백그라운드 재생 및 오프라인 저장',
+      'YouTube Music 무료 이용 포함',
+      '입금 즉시 빠른 활성화'
     ]
   },
   {
     id: 'yearly',
     name: '1년 이용권',
-    price: 50000,
-    originalPrice: 178800,
     period: '년',
+    options: {
+      INDIA: {
+        price: 40000,
+        originalPrice: 178800,
+        label: '인도'
+      },
+      KOREA: {
+        price: 50000,
+        originalPrice: 178800,
+        label: '한국'
+      }
+    },
     features: [
-      '월간 이용권의 모든 혜택',
-      '추가 할인 적용',
-      '1년 동안 갱신 걱정 없음'
+      '월간 이용권의 모든 혜택 포함',
+      '1년 동안 갱신 걱정 없는 편안함',
+      '장기 구독 시 추가 할인 혜택',
+      '가격 인상 걱정 없는 고정 요금',
+      '프리미엄 전용 고객 지원'
     ]
   }
 ];
@@ -39,7 +61,12 @@ const PLANS: Plan[] = [
 export const App: React.FC = () => {
   const [showStickyBtn, setShowStickyBtn] = useState(false);
 
-  const handlePlanSelect = (plan: Plan) => {
+  const handlePlanSelect = (plan: Plan, region: Region) => {
+    // Construct message based on selection
+    const message = `안녕하세요! 와이튜브입니다.\n[${plan.name} - ${region === 'INDIA' ? '인도' : '한국'} 계정] 문의드립니다.`;
+    // Encode for URL
+    // Since we are just opening the chat, we can't easily pre-fill message in all Kakao links, 
+    // but the intention is to direct them to chat.
     window.open('https://pf.kakao.com/_yxbeyn/chat', '_blank');
   };
 
@@ -123,10 +150,14 @@ export const App: React.FC = () => {
             <p className="text-gray-400 text-sm">커피 한 잔 값으로 한 달을 즐겁게</p>
           </div>
           
-          <div className="grid grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {PLANS.map(plan => (
               <PricingCard key={plan.id} plan={plan} onSelect={handlePlanSelect} />
             ))}
+          </div>
+          
+          <div className="text-center text-xs text-gray-500 mt-4">
+             * 모든 상품은 부가세가 포함된 가격입니다.
           </div>
         </section>
 

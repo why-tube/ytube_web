@@ -1,69 +1,102 @@
-import React from 'react';
-import { Plan } from '../types';
+import React, { useState } from 'react';
+import { Plan, Region } from '../types';
 
 interface PricingCardProps {
   plan: Plan;
-  onSelect: (plan: Plan) => void;
+  onSelect: (plan: Plan, region: Region) => void;
 }
 
 export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
-  const isPriceNumber = typeof plan.price === 'number';
+  const [region, setRegion] = useState<Region>('KOREA');
+  const currentOption = plan.options[region];
   
-  // Calculate discount only if price is a number
-  const discount = isPriceNumber
-    ? Math.round(((plan.originalPrice - (plan.price as number)) / plan.originalPrice) * 100)
-    : null;
-
-  const priceDisplay = isPriceNumber 
-    ? `${(plan.price as number).toLocaleString()}원` 
-    : plan.price;
+  const discount = Math.round(
+    ((currentOption.originalPrice - currentOption.price) / currentOption.originalPrice) * 100
+  );
 
   return (
     <div 
-      className={`relative p-6 rounded-2xl border ${
+      className={`relative p-1 rounded-2xl transition-transform duration-300 hover:scale-[1.02] ${
         plan.bestValue 
-          ? 'border-brand-red bg-gradient-to-b from-[#1a1a1a] to-black shadow-[0_0_20px_rgba(255,0,0,0.3)]' 
-          : 'border-white/10 bg-white/5 backdrop-blur-md'
-      } flex flex-col gap-4 transform transition-transform hover:scale-105 duration-300`}
+          ? 'bg-gradient-to-b from-brand-red/50 to-transparent shadow-[0_0_40px_rgba(255,0,0,0.2)]' 
+          : 'bg-white/5'
+      }`}
     >
-      {plan.bestValue && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-red text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-          추천 상품
-        </div>
-      )}
-      
-      <div>
-        <h3 className="text-xl font-bold text-gray-200">{plan.name}</h3>
-        <div className="flex items-baseline gap-2 mt-2">
-          <span className="text-3xl font-black text-white">{priceDisplay}</span>
-          <span className="text-sm text-gray-500 line-through">{plan.originalPrice.toLocaleString()}원</span>
-        </div>
-        {discount !== null && (
-          <div className="mt-1 text-brand-red font-semibold text-sm">
-            {discount}% 할인
+      <div className="relative h-full bg-[#111] rounded-xl p-6 flex flex-col gap-5 border border-white/10 overflow-hidden">
+        {plan.bestValue && (
+          <div className="absolute top-0 right-0 bg-brand-red text-white text-xs font-bold px-3 py-1 rounded-bl-xl shadow-lg">
+            BEST CHOICE
           </div>
         )}
+        
+        {/* Header */}
+        <div>
+          <h3 className="text-lg font-medium text-gray-400">{plan.name}</h3>
+          <div className="flex items-baseline gap-2 mt-2">
+            <span className="text-4xl font-black text-white tracking-tight">
+              {currentOption.price.toLocaleString()}
+              <span className="text-2xl font-bold">원</span>
+            </span>
+            <span className="text-sm text-gray-600 line-through">
+              {currentOption.originalPrice.toLocaleString()}원
+            </span>
+          </div>
+          <div className="mt-1 inline-block px-2 py-0.5 rounded bg-brand-red/10 border border-brand-red/20 text-brand-red font-bold text-sm">
+            {discount}% SAVE
+          </div>
+        </div>
+
+        {/* Region Toggle */}
+        <div className="bg-white/5 p-1 rounded-lg flex relative">
+          {/* Animated Background Pill */}
+          <div 
+            className={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-white/10 rounded-md transition-all duration-300 ease-out ${
+              region === 'INDIA' ? 'translate-x-[calc(100%+4px)]' : 'translate-x-0'
+            }`}
+          />
+          
+          <button
+            onClick={() => setRegion('KOREA')}
+            className={`relative flex-1 py-2 text-sm font-medium rounded-md transition-colors z-10 flex items-center justify-center gap-2 ${
+              region === 'KOREA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
+            }`}
+          >
+            <span>🇰🇷</span> 한국
+          </button>
+          <button
+            onClick={() => setRegion('INDIA')}
+            className={`relative flex-1 py-2 text-sm font-medium rounded-md transition-colors z-10 flex items-center justify-center gap-2 ${
+              region === 'INDIA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
+            }`}
+          >
+            <span>🇮🇳</span> 인도
+          </button>
+        </div>
+
+        {/* Features */}
+        <div className="flex-1">
+          <ul className="space-y-3">
+            {plan.features.map((feature, idx) => (
+              <li key={idx} className="flex items-start gap-3 text-sm text-gray-300">
+                <i className="fa-solid fa-check text-brand-red mt-1"></i>
+                <span className="leading-tight">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* CTA Button */}
+        <button
+          onClick={() => onSelect(plan, region)}
+          className={`w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-95 ${
+            plan.bestValue
+              ? 'bg-brand-red text-white hover:bg-red-600 shadow-lg shadow-red-900/30'
+              : 'bg-white text-black hover:bg-gray-200'
+          }`}
+        >
+          {region === 'KOREA' ? '한국 계정으로 시작' : '인도 계정으로 시작'}
+        </button>
       </div>
-
-      <ul className="space-y-3 my-2">
-        {plan.features.map((feature, idx) => (
-          <li key={idx} className="flex items-center gap-3 text-sm text-gray-300">
-            <i className="fa-solid fa-check text-brand-red"></i>
-            {feature}
-          </li>
-        ))}
-      </ul>
-
-      <button
-        onClick={() => onSelect(plan)}
-        className={`w-full py-3 rounded-xl font-bold transition-all ${
-          plan.bestValue
-            ? 'bg-brand-red text-white hover:bg-red-600 shadow-lg shadow-red-900/20'
-            : 'bg-white text-black hover:bg-gray-200'
-        }`}
-      >
-        선택하기
-      </button>
     </div>
   );
 };
