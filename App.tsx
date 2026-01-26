@@ -128,12 +128,22 @@ export const App: React.FC = () => {
       <div className="relative min-h-screen font-sans text-white bg-black selection:bg-brand-red selection:text-white flex flex-col items-center justify-center p-6 overflow-hidden">
         <SplineHero url={SPLINE_URL} />
         
+        {/* Top Left Brand Logo */}
+        <nav className="absolute top-0 left-0 w-full p-6 z-20">
+          <div className="flex items-center gap-2">
+            <span className="text-2xl font-black tracking-tighter text-white">와이튜브</span>
+          </div>
+        </nav>
+
         <div className="relative z-10 text-center space-y-12 max-w-4xl w-full animate-float">
           <div className="space-y-4">
-            <h1 className="text-4xl md:text-6xl font-black leading-tight">
-              Choose Your Platform
+            <h1 className="text-5xl md:text-7xl font-black leading-tight tracking-tight">
+              와이튜브
             </h1>
-            <p className="text-gray-400 text-lg">
+            <p className="text-xl md:text-2xl font-bold text-gray-200">
+              Choose Your Platform
+            </p>
+            <p className="text-gray-400 text-base md:text-lg">
               합리적인 가격으로 프리미엄 라이프를 시작하세요.
             </p>
           </div>
