@@ -5,6 +5,7 @@ export interface Review {
   text: string;
   rating: number;
   date: string;
+  ip: string;
 }
 
 interface ReviewMarqueeProps {
@@ -14,12 +15,12 @@ interface ReviewMarqueeProps {
 
 export const ReviewMarquee: React.FC<ReviewMarqueeProps> = ({ reviews, themeColor }) => {
   return (
-    <div className="w-full overflow-hidden py-10 relative">
+    <div className="w-full overflow-hidden py-10 relative group">
       <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
       <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
       
-      {/* Container to handle the width */}
-      <div className="flex w-max">
+      {/* Container to handle the width - added hover pause logic */}
+      <div className="flex w-max hover:[&>*]:[animation-play-state:paused]">
         {/* Original Set */}
         <div className="flex animate-marquee gap-6 pr-6">
           {reviews.map((review, index) => (
@@ -58,11 +59,14 @@ const ReviewCard: React.FC<{ review: Review; themeColor: string }> = ({ review, 
         "{review.text}"
       </p>
       
-      <div className="flex items-center gap-2 mt-auto pt-2 border-t border-white/5">
-        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-[10px] text-gray-400">
-          <i className="fa-solid fa-user"></i>
+      <div className="flex items-center justify-between mt-auto pt-2 border-t border-white/5">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-[10px] text-gray-400">
+            <i className="fa-solid fa-user"></i>
+          </div>
+          <span className="text-xs font-bold text-gray-400">{review.name}</span>
         </div>
-        <span className="text-xs font-bold text-gray-400">{review.name}</span>
+        <span className="text-[10px] text-gray-600 font-mono tracking-wider">{review.ip}</span>
       </div>
     </div>
   );
