@@ -19,8 +19,8 @@ export const ReviewMarquee: React.FC<ReviewMarqueeProps> = ({ reviews, themeColo
       <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
       <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
       
-      {/* Container to handle the width - added hover pause logic */}
-      <div className="flex w-max hover:[&>*]:[animation-play-state:paused]">
+      {/* Container to handle the width */}
+      <div className="flex w-max">
         {/* Original Set */}
         <div className="flex animate-marquee gap-6 pr-6">
           {reviews.map((review, index) => (

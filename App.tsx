@@ -123,14 +123,14 @@ const YOUTUBE_DATA: ServiceData = {
   },
   hero: {
     badge: '🚀 70% 한정 할인 진행중',
-    title: <>YouTube Premium<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">더 현명하게 즐기세요</span></>,
-    subtitle: <>광고 없이, 끊김 없이. <br/>공식 가격의 부담은 줄이고 혜택은 그대로.</>
+    title: <>YouTube Premium<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">VPN 없이 더 싸게</span></>,
+    subtitle: <>광고 없이, 끊김 없이. <br/>인도/터키 우회 막힘 걱정 없이 안전하게.</>
   },
   features: [
-    { icon: 'fa-ban', title: '광고 제거', desc: '영상을 끊김 없이 감상하세요' },
-    { icon: 'fa-download', title: '오프라인 저장', desc: '데이터 걱정 없이 즐기세요' },
-    { icon: 'fa-music', title: 'YouTube Music', desc: '8천만 곡 이상의 음악 스트리밍' },
-    { icon: 'fa-mobile-screen', title: '백그라운드 재생', desc: '다른 앱을 쓰면서도 계속 재생' },
+    { icon: 'fa-ban', title: '광고 제거', desc: '모든 영상의 광고를 완벽하게 차단합니다' },
+    { icon: 'fa-globe', title: 'VPN 불필요', desc: '번거로운 VPN 설치 없이 즉시 이용 가능' },
+    { icon: 'fa-music', title: 'YouTube Music', desc: '8천만 곡 이상의 음악 무료 스트리밍' },
+    { icon: 'fa-mobile-screen', title: '백그라운드 재생', desc: '화면을 꺼도 끊김 없는 영상 재생' },
   ],
   plans: [
     {
@@ -142,7 +142,7 @@ const YOUTUBE_DATA: ServiceData = {
         INDIA: { price: 4000, originalPrice: 14900, label: '인도' },
         KOREA: { price: 5000, originalPrice: 14900, label: '한국' }
       },
-      features: ['YouTube Premium 100% 동일 혜택', '광고 없는 쾌적한 영상 시청', '백그라운드 재생 및 오프라인 저장', 'YouTube Music 무료 이용 포함', '입금 즉시 빠른 활성화']
+      features: ['YouTube Premium 정품과 동일 혜택', '복잡한 VPN 우회 과정 없음', '백그라운드 재생 및 오프라인 저장', 'YouTube Music 무료 이용 포함', '입금 즉시 3분 내 빠른 활성화']
     },
     {
       id: 'yearly',
@@ -152,12 +152,12 @@ const YOUTUBE_DATA: ServiceData = {
         INDIA: { price: 40000, originalPrice: 178800, label: '인도' },
         KOREA: { price: 50000, originalPrice: 178800, label: '한국' }
       },
-      features: ['월간 이용권의 모든 혜택 포함', '1년 동안 갱신 걱정 없는 편안함', '장기 구독 시 추가 할인 혜택', '가격 인상 걱정 없는 고정 요금', '프리미엄 전용 고객 지원']
+      features: ['월간 이용권의 모든 혜택 포함', '1년 동안 갱신/결제 걱정 없음', '장기 구독 시 추가 할인 혜택', '가격 인상 걱정 없는 고정 요금', '문제 발생 시 100% AS 및 환불']
     }
   ],
   faqs: [
     { q: "기존에 사용하던 계정을 그대로 쓸 수 있나요?", a: "네, 가능합니다. 사용하시던 구글 계정 그대로 유튜브 프리미엄 혜택만 적용해 드립니다. 시청 기록, 구독 채널, 알고리즘 추천 등 모든 데이터가 그대로 유지됩니다." },
-    { q: "결제 후 이용까지 얼마나 걸리나요?", a: "입금 확인 후 평균 10분 내로 처리가 완료됩니다. 카카오톡 상담 채널을 통해 실시간으로 안내해 드리고 있습니다." },
+    { q: "VPN을 써서 우회해야 하나요?", a: "아니요, 와이튜브는 VPN이 전혀 필요 없습니다. 보내드리는 가족 초대 링크만 클릭하면 즉시 한국에서 사용하는 것처럼 편하게 이용하실 수 있습니다." },
     { q: "도중에 해지되거나 문제가 생기면 어떡하나요?", a: "서비스 이용 중 문제가 발생할 경우 남은 기간에 대해 100% 환불을 보장해 드립니다. 또한, 문제 발생 시 즉시 새로운 계정으로 복구해 드리는 AS 정책을 운영하고 있습니다." },
     { q: "인도 계정과 한국 계정의 차이는 무엇인가요?", a: "유튜브 영상 시청 및 광고 제거 기능은 전 세계 동일하게 적용됩니다. 다만 인도 계정의 경우 유튜브 뮤직 등 일부 부가 기능에서 차이가 있을 수 있습니다. 가장 안정적이고 편리한 사용을 원하신다면 한국 계정을 추천드립니다." },
     { q: "아이폰, 안드로이드 모두 사용 가능한가요?", a: "네, 기기 종류와 상관없이 모든 스마트폰(아이폰, 갤럭시 등), 태블릿, PC, 스마트 TV에서 동일하게 이용하실 수 있습니다." }
@@ -175,7 +175,7 @@ const DUOLINGO_DATA: ServiceData = {
   hero: {
     badge: '🎓 평생 언어 학습 파트너',
     title: <>Super Duolingo<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-[#58CC02]">제한 없이 배우세요</span></>,
-    subtitle: <>하트 무제한, 광고 제거, 오답 노트. <br/>가장 빠른 언어 습득을 위한 현명한 선택.</>
+    subtitle: <>하트 무제한, 광고 제거, 오답 노트. <br/>슈퍼 패밀리 플랜 공유로 가장 저렴하게.</>
   },
   features: [
     { icon: 'fa-heart', title: '무제한 하트', desc: '실수해도 멈추지 않고 계속 학습' },
@@ -236,17 +236,17 @@ export const App: React.FC = () => {
         {/* Top Left Brand Logo */}
         <nav className="absolute top-0 left-0 w-full p-6 z-20">
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-black tracking-tighter text-white">와이튜브</span>
+            <h1 className="text-2xl font-black tracking-tighter text-white cursor-pointer">와이튜브</h1>
           </div>
         </nav>
 
         <div className="relative z-10 text-center space-y-12 max-w-4xl w-full animate-float">
           <div className="space-y-4">
-            <h1 className="text-5xl md:text-7xl font-black leading-tight tracking-tight">
+            <h2 className="text-5xl md:text-7xl font-black leading-tight tracking-tight">
               와이튜브
-            </h1>
+            </h2>
             <p className="text-xl md:text-2xl font-bold text-gray-200">
-              Choose Your Platform
+              유튜브 프리미엄 & 듀오링고 할인
             </p>
             <p className="text-gray-400 text-base md:text-lg">
               합리적인 가격으로 프리미엄 라이프를 시작하세요.
@@ -263,7 +263,7 @@ export const App: React.FC = () => {
                 <i className="fa-brands fa-youtube"></i>
               </div>
               <div>
-                <h2 className="text-2xl font-bold mb-2 text-white">YouTube Premium</h2>
+                <h3 className="text-2xl font-bold mb-2 text-white">YouTube Premium</h3>
                 <p className="text-gray-400 text-sm">월 4,000원부터 시작하는 광고 없는 영상</p>
               </div>
               <div className="mt-auto flex items-center text-brand-red font-bold text-sm">
@@ -280,7 +280,7 @@ export const App: React.FC = () => {
                 <i className="fa-solid fa-feather"></i>
               </div>
               <div>
-                <h2 className="text-2xl font-bold mb-2 text-white">Super Duolingo</h2>
+                <h3 className="text-2xl font-bold mb-2 text-white">Super Duolingo</h3>
                 <p className="text-gray-400 text-sm">무제한 하트로 배우는 가장 빠른 언어 학습</p>
               </div>
               <div className="mt-auto flex items-center text-[#58CC02] font-bold text-sm">
