@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type Region = 'INDIA' | 'KOREA';
 
 export interface PricingOption {

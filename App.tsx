@@ -2,11 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { SplineHero } from './components/SplineHero';
 import { PricingCard } from './components/PricingCard';
 import { FAQItem } from './components/FAQItem';
+import { ReviewMarquee, Review } from './components/ReviewMarquee';
 import { Plan, Region, ServiceData } from './types';
 
 const SPLINE_URL = "https://my.spline.design/airbnbicons-C39idtijswecON1TrtxnF89Y/";
 
 // --- DATA DEFINITIONS ---
+
+const YOUTUBE_REVIEWS: Review[] = [
+  { name: "김*수", text: "진작 알았으면 좋았을 텐데.. 커피 한 잔 값으로 유튜브 프리미엄이라니 대박입니다.", rating: 5, date: "2일 전" },
+  { name: "Lee**", text: "입금하고 5분 만에 바로 적용됐어요. 속도 무엇? ㅋㅋㅋ 잘 쓰겠습니다.", rating: 5, date: "5시간 전" },
+  { name: "박*영", text: "처음엔 반신반의했는데 상담도 너무 친절하시고 6개월째 문제없이 쓰는 중입니다.", rating: 5, date: "1주 전" },
+  { name: "최*호", text: "유튜브 뮤직까지 같이 되니까 멜론 해지했습니다. 돈 굳었네요.", rating: 5, date: "3일 전" },
+  { name: "S.K.", text: "다른 곳 쓰다가 먹튀 당해서 여기로 옮겼는데 여긴 진짜 빠르고 확실하네요.", rating: 5, date: "어제" },
+  { name: "정*우", text: "가족들 거 다 해줬습니다. 다들 너무 좋아하네요 번창하세요!", rating: 5, date: "2주 전" },
+];
+
+const DUOLINGO_REVIEWS: Review[] = [
+  { name: "Hans**", text: "하트 무제한 되니까 공부할 맛 나네요. 광고 없어서 집중도 잘 됨.", rating: 5, date: "1일 전" },
+  { name: "김*지", text: "패밀리 플랜이라 걱정했는데 개인 계정이랑 똑같네요! 싸게 잘 샀습니다.", rating: 5, date: "3일 전" },
+  { name: "Park**", text: "영어 공부 다시 시작하려고 끊었는데 가성비 최고입니다.", rating: 5, date: "어제" },
+  { name: "이*민", text: "결제하자마자 초대 링크 바로 오네요. 피드백 빨라서 좋습니다.", rating: 5, date: "4시간 전" },
+  { name: "Choi**", text: "친구 추천으로 왔습니다. 1년 동안 열공해보겠습니다 화이팅!", rating: 5, date: "1주 전" },
+];
+
 
 const YOUTUBE_DATA: ServiceData = {
   id: 'YOUTUBE',
@@ -211,10 +230,10 @@ export const App: React.FC = () => {
       </nav>
 
       {/* Main Content */}
-      <main className="relative z-10 flex flex-col items-center w-full max-w-2xl mx-auto px-6 pt-32 pb-24 space-y-24">
+      <main className="relative z-10 flex flex-col items-center w-full max-w-full overflow-hidden mx-auto pt-32 pb-24 space-y-24">
         
         {/* Hero Section */}
-        <section className="text-center space-y-6 animate-float">
+        <section className="text-center space-y-6 animate-float px-6 max-w-2xl">
           <span 
             className="inline-block px-3 py-1 text-xs font-semibold bg-white/10 border rounded-full mb-2"
             style={{ color: currentData.themeColor, borderColor: `${currentData.themeColor}33` }}
@@ -239,7 +258,7 @@ export const App: React.FC = () => {
         </section>
 
         {/* Features Grid */}
-        <section className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="w-full max-w-2xl px-6 grid grid-cols-1 md:grid-cols-2 gap-4">
           {currentData.features.map((feature, i) => (
             <div key={i} className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-colors">
               <div 
@@ -256,8 +275,20 @@ export const App: React.FC = () => {
           ))}
         </section>
 
+        {/* Review Marquee Section */}
+        <section className="w-full">
+          <div className="text-center mb-6">
+            <h2 className="text-xl font-bold mb-2 text-gray-200">생생한 리얼 후기</h2>
+            <p className="text-gray-500 text-xs">이미 수많은 분들이 혜택을 받고 계십니다</p>
+          </div>
+          <ReviewMarquee 
+            reviews={currentData.id === 'YOUTUBE' ? YOUTUBE_REVIEWS : DUOLINGO_REVIEWS} 
+            themeColor={currentData.themeColor} 
+          />
+        </section>
+
         {/* Pricing Section */}
-        <section id="pricing" className="w-full space-y-8">
+        <section id="pricing" className="w-full max-w-2xl px-6 space-y-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold mb-2">합리적인 가격</h2>
             <p className="text-gray-400 text-sm">커피 한 잔 값으로 한 달을 즐겁게</p>
@@ -281,7 +312,7 @@ export const App: React.FC = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="w-full space-y-8">
+        <section className="w-full max-w-2xl px-6 space-y-8">
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-2">자주 묻는 질문</h2>
             <p className="text-gray-400 text-sm">궁금한 점을 확인해보세요</p>
@@ -295,17 +326,19 @@ export const App: React.FC = () => {
         </section>
 
         {/* Trust Indicators */}
-        <section className="w-full bg-[#111] rounded-3xl p-8 text-center space-y-6 border border-white/5">
-          <div className="flex justify-center gap-8 text-3xl text-gray-600">
-            <i className="fa-brands fa-apple"></i>
-            <i className="fa-brands fa-android"></i>
-            <i className="fa-brands fa-windows"></i>
+        <section className="w-full max-w-2xl px-6">
+          <div className="w-full bg-[#111] rounded-3xl p-8 text-center space-y-6 border border-white/5">
+            <div className="flex justify-center gap-8 text-3xl text-gray-600">
+              <i className="fa-brands fa-apple"></i>
+              <i className="fa-brands fa-android"></i>
+              <i className="fa-brands fa-windows"></i>
+            </div>
+            <p className="text-gray-400 text-sm">
+              모든 디바이스에서 완벽하게 호환됩니다.
+              <br />
+              구독 도중 계정 이상 발생 시 남은 기간 100% 환불 보장.
+            </p>
           </div>
-          <p className="text-gray-400 text-sm">
-            모든 디바이스에서 완벽하게 호환됩니다.
-            <br />
-            구독 도중 계정 이상 발생 시 남은 기간 100% 환불 보장.
-          </p>
         </section>
 
       </main>
