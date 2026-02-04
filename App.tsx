@@ -3,7 +3,9 @@ import { SplineHero } from './components/SplineHero';
 import { PricingCard } from './components/PricingCard';
 import { FAQItem } from './components/FAQItem';
 import { ReviewMarquee, Review } from './components/ReviewMarquee';
+import { LegalPage } from './components/LegalPage';
 import { Plan, Region, ServiceData } from './types';
+import { TERMS_OF_SERVICE, PRIVACY_POLICY } from './data/legal';
 
 const SPLINE_URL = "https://my.spline.design/airbnbicons-C39idtijswecON1TrtxnF89Y/";
 
@@ -217,6 +219,7 @@ const DUOLINGO_DATA: ServiceData = {
 
 export const App: React.FC = () => {
   const [selectedService, setSelectedService] = useState<ServiceData | null>(null);
+  const [activeLegalDoc, setActiveLegalDoc] = useState<'TOS' | 'PRIVACY' | null>(null);
   const [showStickyBtn, setShowStickyBtn] = useState(false);
 
   // Define current data based on selection or default to null
@@ -237,10 +240,26 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // --- LEGAL PAGES RENDER ---
+  if (activeLegalDoc) {
+    // If a specific service is selected, use its theme. Otherwise default to a neutral theme.
+    const themeColor = currentData ? currentData.themeColor : '#FF0000';
+    const isTerms = activeLegalDoc === 'TOS';
+    
+    return (
+      <LegalPage 
+        title={isTerms ? '이용약관' : '개인정보처리방침'}
+        content={isTerms ? TERMS_OF_SERVICE : PRIVACY_POLICY}
+        onBack={() => setActiveLegalDoc(null)}
+        themeColor={themeColor}
+      />
+    );
+  }
+
   // --- LANDING SCREEN (SERVICE SELECTION) ---
   if (!currentData) {
     return (
-      <div className="relative min-h-screen font-sans text-white bg-black selection:bg-brand-red selection:text-white flex flex-col items-center justify-center p-6 overflow-hidden">
+      <div className="relative min-h-screen font-sans text-white bg-black selection:bg-brand-red selection:text-white flex flex-col justify-between p-6 overflow-x-hidden">
         <SplineHero url={SPLINE_URL} />
         
         {/* Top Left Brand Logo */}
@@ -250,8 +269,9 @@ export const App: React.FC = () => {
           </div>
         </nav>
 
-        <div className="relative z-10 text-center space-y-12 max-w-4xl w-full animate-float">
-          <div className="space-y-4">
+        {/* Main Centered Content */}
+        <div className="relative z-10 flex flex-col items-center justify-center flex-grow w-full max-w-4xl mx-auto space-y-12 animate-float py-20">
+          <div className="space-y-4 text-center">
             <h2 className="text-5xl md:text-7xl font-black leading-tight tracking-tight">
               와이튜브
             </h2>
@@ -299,6 +319,15 @@ export const App: React.FC = () => {
             </button>
           </div>
         </div>
+        
+        {/* Landing Page Footer */}
+        <footer className="relative z-10 w-full text-center py-4">
+          <div className="flex justify-center gap-6 text-xs text-gray-500 font-medium">
+            <button onClick={() => setActiveLegalDoc('TOS')} className="hover:text-white hover:underline transition-all">이용약관</button>
+            <button onClick={() => setActiveLegalDoc('PRIVACY')} className="hover:text-white hover:underline transition-all">개인정보처리방침</button>
+          </div>
+          <p className="mt-2 text-[10px] text-gray-600">© 2025 와이튜브. All rights reserved.</p>
+        </footer>
       </div>
     );
   }
@@ -441,12 +470,12 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 w-full bg-black py-10 border-t border-white/10 text-center text-gray-600 text-xs">
+      <footer className="relative z-10 w-full bg-black py-10 border-t border-white/10 text-center text-gray-500 text-xs">
         <p className="mb-2">© 2025 와이튜브. All rights reserved.</p>
         <p>본 서비스는 공식 서비스가 아닌 리셀러 서비스입니다.</p>
-        <div className="mt-4 flex justify-center gap-4">
-          <a href="#" className="hover:text-white transition">이용약관</a>
-          <a href="#" className="hover:text-white transition">개인정보처리방침</a>
+        <div className="mt-4 flex justify-center gap-6 font-medium">
+          <button onClick={() => setActiveLegalDoc('TOS')} className="hover:text-white hover:underline transition-all">이용약관</button>
+          <button onClick={() => setActiveLegalDoc('PRIVACY')} className="hover:text-white hover:underline transition-all">개인정보처리방침</button>
         </div>
       </footer>
 
