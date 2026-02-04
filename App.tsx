@@ -155,16 +155,6 @@ const YOUTUBE_DATA: ServiceData = {
         KOREA: { price: 6500, originalPrice: 14900, label: '한국' }
       },
       features: ['가족 그룹 공유형 (초대 방식)', '복잡한 VPN 우회 과정 없음', '백그라운드 재생 및 오프라인 저장', 'YouTube Music 무료 이용 포함', '입금 즉시 3분 내 빠른 활성화']
-    },
-    {
-      id: 'yearly',
-      name: '1년 이용권 (가족초대)',
-      period: '년',
-      options: {
-        INDIA: { price: 55000, originalPrice: 178800, label: '인도' },
-        KOREA: { price: 65000, originalPrice: 178800, label: '한국' }
-      },
-      features: ['가족 그룹 공유형 (초대 방식)', '1년 동안 갱신/결제 걱정 없음', '장기 구독 시 추가 할인 혜택', '가격 인상 걱정 없는 고정 요금', '문제 발생 시 100% AS 및 환불']
     }
   ],
   faqs: [
@@ -419,16 +409,17 @@ export const App: React.FC = () => {
             <p className="text-gray-400 text-sm">커피 한 잔 값으로 한 달을 즐겁게</p>
           </div>
           
-          {/* Responsive Grid: 1 col mobile, 2 cols tablet, 3 cols desktop if 3 items */}
-          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto`}>
+          {/* Centered Flex Layout for Pricing Cards */}
+          <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto">
             {currentData.plans.map(plan => (
-              <PricingCard 
-                key={plan.id} 
-                plan={plan} 
-                onSelect={handlePlanSelect} 
-                themeColor={currentData.themeColor}
-                toggleLabels={currentData.toggleLabels}
-              />
+              <div key={plan.id} className="w-full max-w-[420px]">
+                <PricingCard 
+                  plan={plan} 
+                  onSelect={handlePlanSelect} 
+                  themeColor={currentData.themeColor}
+                  toggleLabels={currentData.toggleLabels}
+                />
+              </div>
             ))}
           </div>
           

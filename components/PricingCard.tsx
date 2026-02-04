@@ -39,10 +39,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
         boxShadow: plan.bestValue ? `0 25px 50px -12px ${themeColor}66` : undefined
       }}
     >
-      <div className="relative h-full bg-[#111] rounded-xl p-6 flex flex-col gap-5 border border-white/10 overflow-hidden">
+      <div className="relative h-full bg-[#111] rounded-xl p-5 md:p-6 flex flex-col gap-5 border border-white/10 overflow-hidden">
         {plan.bestValue && (
           <div 
-            className="absolute top-0 right-0 text-white text-xs font-bold px-3 py-1 rounded-bl-xl shadow-lg"
+            className="absolute top-0 right-0 text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded-bl-xl shadow-lg"
             style={{ backgroundColor: themeColor }}
           >
             BEST CHOICE
@@ -50,26 +50,30 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
         )}
         
         {/* Header */}
-        <div>
-          <div className="flex justify-between items-start">
-             <h3 className={`text-lg font-medium ${plan.bestValue ? 'text-white' : 'text-gray-400'}`}>{plan.name}</h3>
-             {plan.bestValue && <i className="fa-solid fa-crown" style={{ color: themeColor }}></i>}
+        <div className="space-y-1">
+          <div className="flex justify-between items-center mb-1">
+             <h3 className={`text-sm md:text-base font-medium ${plan.bestValue ? 'text-gray-200' : 'text-gray-400'}`}>{plan.name}</h3>
+             {plan.bestValue && <i className="fa-solid fa-crown text-xs md:text-sm" style={{ color: themeColor }}></i>}
           </div>
           
-          <div className="flex items-baseline gap-2 mt-2">
-            <span className="text-4xl font-black text-white tracking-tight">
+          {/* Price & Discount Row */}
+          <div className="flex items-center gap-3">
+            <span className="text-3xl md:text-4xl font-black text-white tracking-tight leading-none">
               {currentOption.price.toLocaleString()}
-              <span className="text-2xl font-bold">원</span>
+              <span className="text-xl md:text-2xl font-bold ml-0.5">원</span>
             </span>
-            <span className="text-sm text-gray-600 line-through">
-              {currentOption.originalPrice.toLocaleString()}원
+            
+            <span 
+              className="px-2 py-1 rounded bg-white/10 border font-bold text-xs md:text-sm tracking-tight"
+              style={{ color: themeColor, borderColor: `${themeColor}4d` }}
+            >
+              {discount}% SAVE
             </span>
           </div>
-          <div 
-            className="mt-2 inline-block px-2 py-0.5 rounded bg-white/10 border border-white/20 font-bold text-sm"
-            style={{ color: themeColor, borderColor: themeColor }}
-          >
-            {discount}% SAVE
+
+          {/* Original Price */}
+          <div className="text-xs md:text-sm text-gray-600 line-through font-medium pl-1">
+            {currentOption.originalPrice.toLocaleString()}원
           </div>
         </div>
 
@@ -85,7 +89,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
             
             <button
               onClick={() => setRegion('KOREA')}
-              className={`relative flex-1 py-2 text-sm font-medium rounded-md transition-colors z-10 flex items-center justify-center gap-2 ${
+              className={`relative flex-1 py-2 text-xs md:text-sm font-medium rounded-md transition-colors z-10 flex items-center justify-center gap-2 ${
                 region === 'KOREA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
               }`}
             >
@@ -93,7 +97,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
             </button>
             <button
               onClick={() => setRegion('INDIA')}
-              className={`relative flex-1 py-2 text-sm font-medium rounded-md transition-colors z-10 flex items-center justify-center gap-2 ${
+              className={`relative flex-1 py-2 text-xs md:text-sm font-medium rounded-md transition-colors z-10 flex items-center justify-center gap-2 ${
                 region === 'INDIA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
               }`}
             >
@@ -103,22 +107,22 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
         ) : (
           // Single option badge
           <div className="flex">
-             <span className="text-sm font-medium text-white bg-white/10 px-3 py-1 rounded-md border border-white/5">
+             <span className="text-xs md:text-sm font-medium text-white bg-white/10 px-3 py-1 rounded-md border border-white/5">
                 {currentOption.label}
              </span>
           </div>
         )}
 
         {/* Features */}
-        <div className="flex-1 py-2">
-          <ul className="space-y-4">
+        <div className="flex-1 py-1">
+          <ul className="space-y-3">
             {plan.features.map((feature, idx) => (
-              <li key={idx} className="flex items-start gap-3 text-sm text-gray-300">
+              <li key={idx} className="flex items-start gap-3 text-xs md:text-sm text-gray-300">
                 <div 
-                  className="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-white/5"
+                  className="mt-0.5 w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 bg-white/5"
                   style={{ color: themeColor }}
                 >
-                  <i className="fa-solid fa-check text-[10px]"></i>
+                  <i className="fa-solid fa-check text-[9px]"></i>
                 </div>
                 <span className="leading-tight">{feature}</span>
               </li>
@@ -129,7 +133,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
         {/* CTA Button */}
         <button
           onClick={() => onSelect(plan, region)}
-          className={`w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-95 text-white shadow-lg hover:brightness-110 flex items-center justify-center gap-2 group`}
+          className={`w-full py-3 md:py-4 rounded-xl font-bold text-base md:text-lg transition-all active:scale-95 text-white shadow-lg hover:brightness-110 flex items-center justify-center gap-2 group`}
           style={{ 
             backgroundColor: themeColor,
             boxShadow: plan.bestValue ? `0 10px 30px -5px ${themeColor}80` : 'none'
