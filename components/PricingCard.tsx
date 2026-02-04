@@ -29,12 +29,15 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
 
   return (
     <div 
-      className={`relative p-1 rounded-2xl transition-transform duration-300 hover:scale-[1.02] ${
+      className={`relative p-1 rounded-2xl transition-all duration-500 ${
         plan.bestValue 
-          ? 'bg-gradient-to-b from-[var(--theme-color)] to-transparent shadow-[0_0_40px_rgba(var(--theme-rgb),0.2)]' 
-          : 'bg-white/5'
+          ? 'bg-gradient-to-b from-[var(--theme-color)] to-transparent shadow-2xl md:-translate-y-6 md:scale-105 z-10' 
+          : 'bg-white/5 hover:scale-[1.02] hover:bg-white/10 hover:shadow-lg'
       }`}
-      style={themeStyle}
+      style={{
+        ...themeStyle,
+        boxShadow: plan.bestValue ? `0 25px 50px -12px ${themeColor}66` : undefined
+      }}
     >
       <div className="relative h-full bg-[#111] rounded-xl p-6 flex flex-col gap-5 border border-white/10 overflow-hidden">
         {plan.bestValue && (
@@ -48,7 +51,11 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
         
         {/* Header */}
         <div>
-          <h3 className="text-lg font-medium text-gray-400">{plan.name}</h3>
+          <div className="flex justify-between items-start">
+             <h3 className={`text-lg font-medium ${plan.bestValue ? 'text-white' : 'text-gray-400'}`}>{plan.name}</h3>
+             {plan.bestValue && <i className="fa-solid fa-crown" style={{ color: themeColor }}></i>}
+          </div>
+          
           <div className="flex items-baseline gap-2 mt-2">
             <span className="text-4xl font-black text-white tracking-tight">
               {currentOption.price.toLocaleString()}
@@ -59,7 +66,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
             </span>
           </div>
           <div 
-            className="mt-1 inline-block px-2 py-0.5 rounded bg-white/10 border border-white/20 font-bold text-sm"
+            className="mt-2 inline-block px-2 py-0.5 rounded bg-white/10 border border-white/20 font-bold text-sm"
             style={{ color: themeColor, borderColor: themeColor }}
           >
             {discount}% SAVE
@@ -96,18 +103,23 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
         ) : (
           // Single option badge
           <div className="flex">
-             <span className="text-sm font-medium text-white bg-white/10 px-3 py-1 rounded-md">
+             <span className="text-sm font-medium text-white bg-white/10 px-3 py-1 rounded-md border border-white/5">
                 {currentOption.label}
              </span>
           </div>
         )}
 
         {/* Features */}
-        <div className="flex-1">
-          <ul className="space-y-3">
+        <div className="flex-1 py-2">
+          <ul className="space-y-4">
             {plan.features.map((feature, idx) => (
               <li key={idx} className="flex items-start gap-3 text-sm text-gray-300">
-                <i className="fa-solid fa-check mt-1" style={{ color: themeColor }}></i>
+                <div 
+                  className="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-white/5"
+                  style={{ color: themeColor }}
+                >
+                  <i className="fa-solid fa-check text-[10px]"></i>
+                </div>
                 <span className="leading-tight">{feature}</span>
               </li>
             ))}
@@ -117,15 +129,16 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
         {/* CTA Button */}
         <button
           onClick={() => onSelect(plan, region)}
-          className={`w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-95 text-white shadow-lg hover:opacity-90`}
+          className={`w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-95 text-white shadow-lg hover:brightness-110 flex items-center justify-center gap-2 group`}
           style={{ 
             backgroundColor: themeColor,
-            boxShadow: plan.bestValue ? `0 10px 30px -10px ${themeColor}80` : 'none'
+            boxShadow: plan.bestValue ? `0 10px 30px -5px ${themeColor}80` : 'none'
           }}
         >
           {region === 'KOREA' 
             ? `${toggleLabels.left}로 시작` 
             : `${toggleLabels.right}로 시작`}
+            <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
         </button>
       </div>
     </div>

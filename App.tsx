@@ -134,25 +134,35 @@ const YOUTUBE_DATA: ServiceData = {
   ],
   plans: [
     {
-      id: 'monthly',
-      name: '1개월 이용권',
-      period: '월',
+      id: 'yearly_individual',
+      name: '1년 이용권 (개인)',
+      period: '년',
       bestValue: true,
       options: {
-        INDIA: { price: 4000, originalPrice: 14900, label: '인도' },
-        KOREA: { price: 5000, originalPrice: 14900, label: '한국' }
+        KOREA: { price: 73000, originalPrice: 178800, label: '개인' }
       },
-      features: ['YouTube Premium 정품과 동일 혜택', '복잡한 VPN 우회 과정 없음', '백그라운드 재생 및 오프라인 저장', 'YouTube Music 무료 이용 포함', '입금 즉시 3분 내 빠른 활성화']
+      features: ['가족 그룹 가입 없는 단독 사용', '기존 내 계정 그대로 독립 사용', '프라이버시 완벽 보호', 'YouTube Premium 모든 혜택 동일', '12개월 일시불 특가 할인']
+    },
+    {
+      id: 'monthly',
+      name: '1개월 이용권(가족초대)',
+      period: '월',
+      bestValue: false,
+      options: {
+        INDIA: { price: 5500, originalPrice: 14900, label: '인도' },
+        KOREA: { price: 6500, originalPrice: 14900, label: '한국' }
+      },
+      features: ['가족 그룹 공유형 (초대 방식)', '복잡한 VPN 우회 과정 없음', '백그라운드 재생 및 오프라인 저장', 'YouTube Music 무료 이용 포함', '입금 즉시 3분 내 빠른 활성화']
     },
     {
       id: 'yearly',
-      name: '1년 이용권',
+      name: '1년 이용권 (가족초대)',
       period: '년',
       options: {
-        INDIA: { price: 40000, originalPrice: 178800, label: '인도' },
-        KOREA: { price: 50000, originalPrice: 178800, label: '한국' }
+        INDIA: { price: 55000, originalPrice: 178800, label: '인도' },
+        KOREA: { price: 65000, originalPrice: 178800, label: '한국' }
       },
-      features: ['월간 이용권의 모든 혜택 포함', '1년 동안 갱신/결제 걱정 없음', '장기 구독 시 추가 할인 혜택', '가격 인상 걱정 없는 고정 요금', '문제 발생 시 100% AS 및 환불']
+      features: ['가족 그룹 공유형 (초대 방식)', '1년 동안 갱신/결제 걱정 없음', '장기 구독 시 추가 할인 혜택', '가격 인상 걱정 없는 고정 요금', '문제 발생 시 100% AS 및 환불']
     }
   ],
   faqs: [
@@ -160,7 +170,7 @@ const YOUTUBE_DATA: ServiceData = {
     { q: "VPN을 써서 우회해야 하나요?", a: "아니요, 와이튜브는 VPN이 전혀 필요 없습니다. 보내드리는 가족 초대 링크만 클릭하면 즉시 한국에서 사용하는 것처럼 편하게 이용하실 수 있습니다." },
     { q: "도중에 해지되거나 문제가 생기면 어떡하나요?", a: "서비스 이용 중 문제가 발생할 경우 남은 기간에 대해 100% 환불을 보장해 드립니다. 또한, 문제 발생 시 즉시 새로운 계정으로 복구해 드리는 AS 정책을 운영하고 있습니다." },
     { q: "인도 계정과 한국 계정의 차이는 무엇인가요?", a: "유튜브 영상 시청 및 광고 제거 기능은 전 세계 동일하게 적용됩니다. 다만 인도 계정의 경우 유튜브 뮤직 등 일부 부가 기능에서 차이가 있을 수 있습니다. 가장 안정적이고 편리한 사용을 원하신다면 한국 계정을 추천드립니다." },
-    { q: "아이폰, 안드로이드 모두 사용 가능한가요?", a: "네, 기기 종류와 상관없이 모든 스마트폰(아이폰, 갤럭시 등), 태블릿, PC, 스마트 TV에서 동일하게 이용하실 수 있습니다." }
+    { q: "개인 이용권은 가족 공유형과 무엇이 다른가요?", a: "개인 이용권은 가족 그룹에 가입하지 않고 고객님의 계정 자체에 프리미엄 권한을 부여하는 방식입니다. 프라이버시를 중요하게 생각하시거나 가족 그룹 가입이 번거로우신 분들께 추천드립니다." }
   ]
 };
 
@@ -374,13 +384,14 @@ export const App: React.FC = () => {
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="w-full max-w-2xl px-6 space-y-8">
+        <section id="pricing" className="w-full max-w-7xl px-6 space-y-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold mb-2">합리적인 가격</h2>
             <p className="text-gray-400 text-sm">커피 한 잔 값으로 한 달을 즐겁게</p>
           </div>
           
-          <div className={`grid grid-cols-1 ${currentData.plans.length > 1 ? 'md:grid-cols-2' : 'max-w-sm mx-auto'} gap-6`}>
+          {/* Responsive Grid: 1 col mobile, 2 cols tablet, 3 cols desktop if 3 items */}
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto`}>
             {currentData.plans.map(plan => (
               <PricingCard 
                 key={plan.id} 
