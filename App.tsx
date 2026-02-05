@@ -284,7 +284,7 @@ export const App: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-2xl font-bold mb-2 text-white">YouTube Premium</h3>
-                <p className="text-gray-400 text-sm">월 4,000원부터 시작하는 광고 없는 영상</p>
+                <p className="text-gray-400 text-sm"> 월 5천원대 최저가로 시작하는 광고 없는 영상</p>
               </div>
               <div className="mt-auto flex items-center text-brand-red font-bold text-sm">
                 선택하기 <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
