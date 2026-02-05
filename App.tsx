@@ -465,9 +465,21 @@ export const App: React.FC = () => {
   <p className="mb-2">© 2025 와이튜브. All rights reserved.</p>
   <p>본 서비스는 공식 서비스가 아닌 리셀러 서비스입니다.</p>
   <div className="mt-4 flex justify-center gap-6 font-medium">
-    {/* href를 통해 실제 URL 경로를 지정합니다 */}
-    <a href="/terms" className="hover:text-white hover:underline transition-all">이용약관</a>
-    <a href="/privacy" className="hover:text-white hover:underline transition-all">개인정보처리방침</a>
+    {/* Use onClick to stay within SPA if possible, but keep href for semantic/fallback */}
+    <a 
+      href="/terms" 
+      onClick={(e) => { e.preventDefault(); setActiveLegalDoc('TOS'); }}
+      className="hover:text-white hover:underline transition-all"
+    >
+      이용약관
+    </a>
+    <a 
+      href="/privacy" 
+      onClick={(e) => { e.preventDefault(); setActiveLegalDoc('PRIVACY'); }}
+      className="hover:text-white hover:underline transition-all"
+    >
+      개인정보처리방침
+    </a>
   </div>
 </footer>
 
