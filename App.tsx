@@ -461,14 +461,15 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 w-full bg-black pt-10 pb-32 border-t border-white/10 text-center text-gray-500 text-xs">
-        <p className="mb-2">© 2025 와이튜브. All rights reserved.</p>
-        <p>본 서비스는 공식 서비스가 아닌 리셀러 서비스입니다.</p>
-        <div className="mt-4 flex justify-center gap-6 font-medium">
-          <button onClick={() => setActiveLegalDoc('TOS')} className="hover:text-white hover:underline transition-all">이용약관</button>
-          <button onClick={() => setActiveLegalDoc('PRIVACY')} className="hover:text-white hover:underline transition-all">개인정보처리방침</button>
-        </div>
-      </footer>
+<footer className="relative z-10 w-full bg-black pt-10 pb-32 border-t border-white/10 text-center text-gray-500 text-xs">
+  <p className="mb-2">© 2025 와이튜브. All rights reserved.</p>
+  <p>본 서비스는 공식 서비스가 아닌 리셀러 서비스입니다.</p>
+  <div className="mt-4 flex justify-center gap-6 font-medium">
+    {/* href를 통해 실제 URL 경로를 지정합니다 */}
+    <a href="/terms" className="hover:text-white hover:underline transition-all">이용약관</a>
+    <a href="/privacy" className="hover:text-white hover:underline transition-all">개인정보처리방침</a>
+  </div>
+</footer>
 
       {/* Sticky Floating CTA Button */}
       <div 
