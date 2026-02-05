@@ -4,10 +4,12 @@ import { PricingCard } from './components/PricingCard';
 import { FAQItem } from './components/FAQItem';
 import { ReviewMarquee, Review } from './components/ReviewMarquee';
 import { LegalPage } from './components/LegalPage';
+import { TermsModal } from './components/TermsModal';
 import { Plan, Region, ServiceData } from './types';
 import { TERMS_OF_SERVICE, PRIVACY_POLICY } from './data/legal';
 
 const SPLINE_URL = "https://my.spline.design/airbnbicons-C39idtijswecON1TrtxnF89Y/";
+const KAKAO_CHAT_URL = 'https://pf.kakao.com/_yxbeyn/chat';
 
 // --- DATA GENERATION UTILS ---
 
@@ -211,15 +213,20 @@ export const App: React.FC = () => {
   const [selectedService, setSelectedService] = useState<ServiceData | null>(null);
   const [activeLegalDoc, setActiveLegalDoc] = useState<'TOS' | 'PRIVACY' | null>(null);
   const [showStickyBtn, setShowStickyBtn] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
 
   // Define current data based on selection or default to null
   const currentData = selectedService;
 
   const handlePlanSelect = (plan: Plan, region: Region) => {
     if (!currentData) return;
-    const optionName = region === 'KOREA' ? currentData.toggleLabels.left : currentData.toggleLabels.right;
-    const message = `안녕하세요! ${currentData.name} 문의드립니다.\n[${plan.name} - ${optionName} 옵션]`;
-    window.open('https://pf.kakao.com/_yxbeyn/chat', '_blank');
+    // We open the terms modal first. The actual navigation happens in onConfirm.
+    setShowTermsModal(true);
+  };
+  
+  const handleTermsConfirm = () => {
+    setShowTermsModal(false);
+    window.open(KAKAO_CHAT_URL, '_blank');
   };
 
   useEffect(() => {
@@ -328,6 +335,13 @@ export const App: React.FC = () => {
       className="relative min-h-screen font-sans text-white bg-black selection:text-white selection:bg-[var(--theme-color)]" 
       style={{ '--theme-color': currentData.themeColor } as React.CSSProperties}
     >
+      <TermsModal 
+        isOpen={showTermsModal} 
+        onClose={() => setShowTermsModal(false)} 
+        onConfirm={handleTermsConfirm} 
+        themeColor={currentData.themeColor}
+      />
+
       {/* 3D Background - Keep it rendered but maybe we could change URL based on service if we wanted */}
       <SplineHero url={SPLINE_URL} />
 
@@ -362,13 +376,14 @@ export const App: React.FC = () => {
             {currentData.hero.subtitle}
           </p>
           <div className="pt-4">
-            <a 
-              href="#pricing"
-              className="inline-block text-white font-bold text-lg px-8 py-4 rounded-full shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:scale-105 transition-transform"
+            <button 
+              onClick={() => setShowTermsModal(true)}
+              className="inline-flex items-center gap-2 text-white font-bold text-lg px-8 py-4 rounded-full shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:scale-105 transition-transform"
               style={{ backgroundColor: currentData.themeColor, boxShadow: `0 0 30px ${currentData.themeColor}66` }}
             >
+              {currentData.id === 'YOUTUBE' ? <i className="fa-brands fa-youtube"></i> : <i className="fa-solid fa-feather"></i>}
               지금 시작하기
-            </a>
+            </button>
           </div>
         </section>
 
@@ -489,16 +504,14 @@ export const App: React.FC = () => {
           showStickyBtn ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
         }`}
       >
-        <a
-          href="https://pf.kakao.com/_yxbeyn/chat"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={() => setShowTermsModal(true)}
           className="pointer-events-auto text-white font-bold text-lg px-10 py-3 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-white/10 backdrop-blur-md"
           style={{ backgroundColor: currentData.themeColor, boxShadow: `0 4px 30px ${currentData.themeColor}80` }}
         >
           {currentData.id === 'YOUTUBE' ? <i className="fa-brands fa-youtube"></i> : <i className="fa-solid fa-feather"></i>}
           구독하기
-        </a>
+        </button>
       </div>
     </div>
   );
