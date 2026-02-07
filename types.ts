@@ -21,9 +21,10 @@ export interface Plan {
 }
 
 export interface ServiceData {
-  id: 'YOUTUBE' | 'DUOLINGO';
+  id: string;
   name: string;
   themeColor: string;
+  chatUrl: string;
   toggleLabels: {
     left: string; // Maps to KOREA key
     right: string; // Maps to INDIA key

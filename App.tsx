@@ -9,7 +9,11 @@ import { Plan, Region, ServiceData } from './types';
 import { TERMS_OF_SERVICE, PRIVACY_POLICY } from './data/legal';
 
 const SPLINE_URL = "https://my.spline.design/airbnbicons-C39idtijswecON1TrtxnF89Y/";
-const KAKAO_CHAT_URL = 'https://pf.kakao.com/_yxbeyn/chat';
+
+// --- SERVICE URLs ---
+// Future services can have their own URLs defined here.
+const YOUTUBE_CHAT_URL = 'https://pf.kakao.com/_yxbeyn/chat';
+const DUOLINGO_CHAT_URL = 'https://pf.kakao.com/_yxbeyn/chat'; // 현재는 동일하지만 필요시 변경 가능
 
 // --- DATA GENERATION UTILS ---
 
@@ -117,7 +121,7 @@ const DUOLINGO_REVIEWS = generateReviewData(DUOLINGO_TEXTS);
 
 // --- HELPER: PURCHASE COUNT LOGIC ---
 // Calculates "Today's Count" (resetting at midnight) and "Cumulative Count".
-const getPurchaseStats = (type: 'YOUTUBE' | 'DUOLINGO') => {
+const getPurchaseStats = (type: string) => {
   const now = new Date();
   // Get start of today (00:00:00)
   const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
@@ -129,9 +133,13 @@ const getPurchaseStats = (type: 'YOUTUBE' | 'DUOLINGO') => {
   if (type === 'YOUTUBE') {
     rate = 2.5; // ~2-3 per hour
     baseTotal = 385; // Starts at 385
-  } else {
+  } else if (type === 'DUOLINGO') {
     rate = 0.25; // ~1 per 3-5 hours (approx 0.25)
     baseTotal = 35; // Starts at 35
+  } else {
+    // Default for future services
+    rate = 1.0;
+    baseTotal = 100;
   }
 
   // Today's count resets daily based on hours passed since midnight
@@ -151,6 +159,7 @@ const YOUTUBE_DATA: ServiceData = {
   id: 'YOUTUBE',
   name: '와이튜브',
   themeColor: '#FF0000',
+  chatUrl: YOUTUBE_CHAT_URL,
   toggleLabels: {
     left: '🇰🇷 한국',
     right: '🇮🇳 인도'
@@ -202,6 +211,7 @@ const DUOLINGO_DATA: ServiceData = {
   id: 'DUOLINGO',
   name: '듀오링고',
   themeColor: '#58CC02',
+  chatUrl: DUOLINGO_CHAT_URL,
   toggleLabels: {
     left: '패밀리',
     right: '개인'
@@ -263,7 +273,9 @@ export const App: React.FC = () => {
   
   const handleTermsConfirm = () => {
     setShowTermsModal(false);
-    window.open(KAKAO_CHAT_URL, '_blank');
+    if (currentData?.chatUrl) {
+      window.open(currentData.chatUrl, '_blank');
+    }
   };
 
   useEffect(() => {
