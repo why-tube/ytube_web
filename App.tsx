@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { SplineHero } from './components/SplineHero';
 import { PricingCard } from './components/PricingCard';
 import { FAQItem } from './components/FAQItem';
@@ -115,6 +115,36 @@ function generateReviewData(texts: string[]): Review[] {
 const YOUTUBE_REVIEWS = generateReviewData(YOUTUBE_TEXTS);
 const DUOLINGO_REVIEWS = generateReviewData(DUOLINGO_TEXTS);
 
+// --- HELPER: PURCHASE COUNT LOGIC ---
+// Calculates "Today's Count" (resetting at midnight) and "Cumulative Count".
+const getPurchaseStats = (type: 'YOUTUBE' | 'DUOLINGO') => {
+  const now = new Date();
+  // Get start of today (00:00:00)
+  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const hoursPassed = (now.getTime() - startOfDay) / (1000 * 60 * 60);
+
+  let rate = 0;
+  let baseTotal = 0;
+
+  if (type === 'YOUTUBE') {
+    rate = 2.5; // ~2-3 per hour
+    baseTotal = 385; // Starts at 385
+  } else {
+    rate = 0.25; // ~1 per 3-5 hours (approx 0.25)
+    baseTotal = 35; // Starts at 35
+  }
+
+  // Today's count resets daily based on hours passed since midnight
+  const todayCount = Math.max(0, Math.floor(hoursPassed * rate));
+  // Total is Base + Today's growth
+  const totalCount = baseTotal + todayCount;
+
+  return {
+    today: todayCount.toLocaleString(),
+    total: totalCount.toLocaleString()
+  };
+};
+
 // --- SERVICE DATA ---
 
 const YOUTUBE_DATA: ServiceData = {
@@ -217,6 +247,13 @@ export const App: React.FC = () => {
 
   // Define current data based on selection or default to null
   const currentData = selectedService;
+
+  // Calculate purchase stats on mount (or when service changes)
+  // Re-calculates when sticky button is shown or service changes to keep it somewhat fresh
+  const stats = useMemo(() => {
+    if (!currentData) return { today: "0", total: "0" };
+    return getPurchaseStats(currentData.id);
+  }, [currentData, showStickyBtn]);
 
   const handlePlanSelect = (plan: Plan, region: Region) => {
     if (!currentData) return;
@@ -510,14 +547,28 @@ export const App: React.FC = () => {
           showStickyBtn ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
         }`}
       >
-        <button
-          onClick={() => setShowTermsModal(true)}
-          className="pointer-events-auto text-white font-bold text-lg px-10 py-3 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-white/10 backdrop-blur-md"
-          style={{ backgroundColor: currentData.themeColor, boxShadow: `0 4px 30px ${currentData.themeColor}80` }}
-        >
-          {currentData.id === 'YOUTUBE' ? <i className="fa-brands fa-youtube"></i> : <i className="fa-solid fa-feather"></i>}
-          구독하기
-        </button>
+        <div className="relative group">
+          {/* Social Proof Bubble */}
+          <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#222]/90 backdrop-blur-md text-white text-[11px] px-3 py-1.5 rounded-full border border-white/10 whitespace-nowrap shadow-lg flex items-center gap-1.5 animate-bounce" style={{ animationDuration: '2s' }}>
+             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_#22c55e]"></span>
+             <span className="text-gray-300">금일</span>
+             <span className="font-bold text-white text-xs">{stats.today}명</span>
+             <span className="text-gray-300">구매</span>
+             <span className="text-gray-500 mx-0.5">|</span>
+             <span className="text-gray-400 text-[10px]">(누적 {stats.total}명)</span>
+             {/* Tiny downward arrow for speech bubble effect */}
+             <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#222]/90 rotate-45 border-r border-b border-white/10"></div>
+          </div>
+
+          <button
+            onClick={() => setShowTermsModal(true)}
+            className="pointer-events-auto text-white font-bold text-lg px-10 py-3 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-white/10 backdrop-blur-md"
+            style={{ backgroundColor: currentData.themeColor, boxShadow: `0 4px 30px ${currentData.themeColor}80` }}
+          >
+            {currentData.id === 'YOUTUBE' ? <i className="fa-brands fa-youtube"></i> : <i className="fa-solid fa-feather"></i>}
+            구독하기
+          </button>
+        </div>
       </div>
     </div>
   );
