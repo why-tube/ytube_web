@@ -106,10 +106,15 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
           </div>
         ) : (
           // Single option badge
-          <div className="flex">
+          <div className="flex gap-2">
              <span className="text-xs md:text-sm font-medium text-white bg-white/10 px-3 py-1 rounded-md border border-white/5">
                 {currentOption.label}
              </span>
+             {plan.id === 'yearly_individual' && (
+               <span className="text-xs md:text-sm font-medium text-white bg-white/10 px-3 py-1 rounded-md border border-white/5">
+                  구글 공식 제휴사
+               </span>
+             )}
           </div>
         )}
 
@@ -140,8 +145,8 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
           }}
         >
           {region === 'KOREA' 
-            ? `${toggleLabels.left}로 시작` 
-            : `${toggleLabels.right}로 시작`}
+            ? `${toggleLabels.left} 시작` 
+            : `${toggleLabels.right} 시작`}
             <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
         </button>
       </div>
