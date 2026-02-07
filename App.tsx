@@ -128,7 +128,7 @@ const YOUTUBE_DATA: ServiceData = {
   hero: {
     badge: '🚀 70% 한정 할인 진행중',
     title: <>YouTube Premium<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">VPN 없이 더 싸게</span></>,
-    subtitle: <>광고 없이, 끊김 없이. <br/>인도/터키 우회 막힘 걱정 없이 안전하게.</>
+    subtitle: <>광고 없이, 끊김 없이. <br/>구글 공식 제휴사 유튜브 프리미엄 리딤코드</>
   },
   features: [
     { icon: 'fa-ban', title: '광고 제거', desc: '모든 영상의 광고를 완벽하게 차단합니다' },
@@ -143,18 +143,18 @@ const YOUTUBE_DATA: ServiceData = {
       period: '년',
       bestValue: true,
       options: {
-        KOREA: { price: 73000, originalPrice: 178800, label: '개인' }
+        KOREA: { price: 69000, originalPrice: 174000, label: '개인' }
       },
-      features: ['가족 그룹 가입 없는 단독 사용', '기존 내 계정 그대로 독립 사용', '프라이버시 완벽 보호', 'YouTube Premium 모든 혜택 동일', '12개월 일시불 특가 할인']
+      features: ['구글 공식 제휴사 리딤코드','가족 그룹 가입 없는 단독 사용', '기존 내 계정 그대로 독립 사용', '프라이버시 완벽 보호', 'YouTube Premium 모든 혜택 동일', '12개월 일시불 특가 할인']
     },
     {
       id: 'monthly',
-      name: '1개월 이용권(가족초대)',
+      name: '3개월 이용권(가족초대)',
       period: '월',
       bestValue: false,
       options: {
-        INDIA: { price: 5500, originalPrice: 14900, label: '인도' },
-        KOREA: { price: 6500, originalPrice: 14900, label: '한국' }
+        INDIA: { price: 18000, originalPrice: 43500, label: '인도' },
+        KOREA: { price: 16500, originalPrice: 43500, label: '한국' }
       },
       features: ['가족 그룹 공유형 (초대 방식)', '복잡한 VPN 우회 과정 없음', '백그라운드 재생 및 오프라인 저장', 'YouTube Music 무료 이용 포함', '입금 즉시 3분 내 빠른 활성화']
     }
