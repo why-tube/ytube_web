@@ -280,38 +280,44 @@ export const App: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl px-4">
             {/* YouTube Option */}
             <button 
               onClick={() => setSelectedService(YOUTUBE_DATA)}
-              className="group relative bg-[#111] border border-white/10 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.03] hover:border-brand-red/50 hover:shadow-[0_0_50px_rgba(255,0,0,0.2)] text-left flex flex-col gap-6"
+              className="group relative bg-[#111]/80 backdrop-blur-sm border border-white/10 rounded-3xl p-8 transition-all duration-500 hover:scale-105 hover:bg-[#151515] hover:border-brand-red/60 hover:shadow-[0_0_60px_rgba(255,0,0,0.3)] text-left flex flex-col gap-6 overflow-hidden"
             >
-              <div className="w-16 h-16 rounded-2xl bg-brand-red/20 flex items-center justify-center text-3xl text-brand-red group-hover:bg-brand-red group-hover:text-white transition-colors">
+              {/* Decorative gradient blob */}
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-brand-red/10 blur-3xl rounded-full group-hover:bg-brand-red/20 transition-all duration-500" />
+              
+              <div className="relative z-10 w-16 h-16 rounded-2xl bg-brand-red/10 flex items-center justify-center text-3xl text-brand-red group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 shadow-[0_0_20px_rgba(255,0,0,0.2)]">
                 <i className="fa-brands fa-youtube"></i>
               </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-2 text-white">YouTube Premium</h3>
-                <p className="text-gray-400 text-sm"> 월 5천원대 최저가로 시작하는 광고 없는 영상</p>
+              <div className="relative z-10">
+                <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-brand-red transition-colors">YouTube Premium</h3>
+                <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors"> 월 5천원대 최저가로 시작하는 광고 없는 영상</p>
               </div>
-              <div className="mt-auto flex items-center text-brand-red font-bold text-sm">
-                선택하기 <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+              <div className="relative z-10 mt-auto flex items-center text-brand-red font-bold text-sm group-hover:tracking-wide transition-all">
+                선택하기 <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
               </div>
             </button>
 
             {/* Duolingo Option */}
             <button 
               onClick={() => setSelectedService(DUOLINGO_DATA)}
-              className="group relative bg-[#111] border border-white/10 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.03] hover:border-[#58CC02]/50 hover:shadow-[0_0_50px_rgba(88,204,2,0.2)] text-left flex flex-col gap-6"
+              className="group relative bg-[#111]/80 backdrop-blur-sm border border-white/10 rounded-3xl p-8 transition-all duration-500 hover:scale-105 hover:bg-[#151515] hover:border-[#58CC02]/60 hover:shadow-[0_0_60px_rgba(88,204,2,0.3)] text-left flex flex-col gap-6 overflow-hidden"
             >
-              <div className="w-16 h-16 rounded-2xl bg-[#58CC02]/20 flex items-center justify-center text-3xl text-[#58CC02] group-hover:bg-[#58CC02] group-hover:text-white transition-colors">
+              {/* Decorative gradient blob */}
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#58CC02]/10 blur-3xl rounded-full group-hover:bg-[#58CC02]/20 transition-all duration-500" />
+
+              <div className="relative z-10 w-16 h-16 rounded-2xl bg-[#58CC02]/10 flex items-center justify-center text-3xl text-[#58CC02] group-hover:scale-110 group-hover:bg-[#58CC02] group-hover:text-white transition-all duration-500 shadow-[0_0_20px_rgba(88,204,2,0.2)]">
                 <i className="fa-solid fa-feather"></i>
               </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-2 text-white">Super Duolingo</h3>
-                <p className="text-gray-400 text-sm">무제한 하트로 배우는 가장 빠른 언어 학습</p>
+              <div className="relative z-10">
+                <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-[#58CC02] transition-colors">Super Duolingo</h3>
+                <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">무제한 하트로 배우는 가장 빠른 언어 학습</p>
               </div>
-              <div className="mt-auto flex items-center text-[#58CC02] font-bold text-sm">
-                선택하기 <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+              <div className="relative z-10 mt-auto flex items-center text-[#58CC02] font-bold text-sm group-hover:tracking-wide transition-all">
+                선택하기 <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
               </div>
             </button>
           </div>
@@ -418,7 +424,7 @@ export const App: React.FC = () => {
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="w-full max-w-7xl px-6 space-y-8">
+        <section id="pricing" className="w-full max-w-7xl px-6 space-y-16">
           <div className="text-center">
             <h2 className="text-3xl font-bold mb-2">합리적인 가격</h2>
             <p className="text-gray-400 text-sm">커피 한 잔 값으로 한 달을 즐겁게</p>
@@ -427,7 +433,7 @@ export const App: React.FC = () => {
           {/* Centered Flex Layout for Pricing Cards */}
           <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto">
             {currentData.plans.map(plan => (
-              <div key={plan.id} className="w-full max-w-[420px]">
+              <div key={plan.id} className="w-full max-w-[360px]">
                 <PricingCard 
                   plan={plan} 
                   onSelect={handlePlanSelect} 
