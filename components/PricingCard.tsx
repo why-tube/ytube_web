@@ -42,25 +42,25 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
         boxShadow: plan.bestValue ? `0 25px 50px -12px ${themeColor}40` : undefined
       }}
     >
-      <div className="relative h-full bg-[#111] rounded-[22px] p-6 flex flex-col gap-6 border border-white/10 overflow-hidden">
+      <div className="relative h-full bg-[#111] rounded-[22px] p-5 flex flex-col gap-4 border border-white/10 overflow-hidden">
         {plan.bestValue && (
           <div 
-            className="absolute top-0 right-0 text-white text-[11px] font-bold px-4 py-1.5 rounded-bl-2xl shadow-lg tracking-wide"
+            className="absolute top-0 right-0 text-white text-[11px] font-bold px-3 py-1.5 rounded-bl-2xl shadow-lg tracking-wide flex items-center gap-1.5 z-20"
             style={{ backgroundColor: themeColor }}
           >
+            <i className="fa-solid fa-crown text-[10px]"></i>
             BEST CHOICE
           </div>
         )}
         
         {/* Header */}
-        <div className="space-y-4">
-          <div className="flex justify-between items-center">
+        <div className="space-y-2">
+          <div className="flex justify-between items-center pr-24"> {/* Added padding-right to avoid overlap with badge if title is long, though usually title wraps */}
              <h3 className={`text-lg font-bold ${plan.bestValue ? 'text-gray-100' : 'text-gray-400'}`}>{plan.name}</h3>
-             {plan.bestValue && <i className="fa-solid fa-crown text-sm" style={{ color: themeColor }}></i>}
           </div>
           
           {/* Main Price Display */}
-          <div className="space-y-3">
+          <div className="space-y-2">
             
             {/* Price Row: Original + Main */}
             <div className="flex items-end gap-2 flex-wrap">
@@ -115,7 +115,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
             
             <button
               onClick={() => setRegion('KOREA')}
-              className={`relative flex-1 py-2.5 text-sm font-bold rounded-lg transition-colors z-10 flex items-center justify-center gap-2 ${
+              className={`relative flex-1 py-2 text-sm font-bold rounded-lg transition-colors z-10 flex items-center justify-center gap-2 ${
                 region === 'KOREA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
               }`}
             >
@@ -123,7 +123,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
             </button>
             <button
               onClick={() => setRegion('INDIA')}
-              className={`relative flex-1 py-2.5 text-sm font-bold rounded-lg transition-colors z-10 flex items-center justify-center gap-2 ${
+              className={`relative flex-1 py-2 text-sm font-bold rounded-lg transition-colors z-10 flex items-center justify-center gap-2 ${
                 region === 'INDIA' ? 'text-white' : 'text-gray-500 hover:text-gray-300'
               }`}
             >
@@ -149,7 +149,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
 
         {/* Features */}
         <div className="flex-1">
-          <ul className="space-y-4">
+          <ul className="space-y-3">
             {plan.features.map((feature, idx) => (
               <li key={idx} className="flex items-start gap-3 text-sm text-gray-300">
                 <div 
@@ -167,7 +167,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
         {/* CTA Button */}
         <button
           onClick={() => onSelect(plan, region)}
-          className={`w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-95 text-white shadow-lg hover:brightness-110 flex items-center justify-center gap-2 group mt-auto`}
+          className={`w-full py-3.5 rounded-xl font-bold text-lg transition-all active:scale-95 text-white shadow-lg hover:brightness-110 flex items-center justify-center gap-2 group mt-auto`}
           style={{ 
             backgroundColor: themeColor,
             boxShadow: plan.bestValue ? `0 8px 25px -5px ${themeColor}66` : 'none'
