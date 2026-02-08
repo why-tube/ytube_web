@@ -330,13 +330,6 @@ export const App: React.FC = () => {
       <div className="relative min-h-screen font-sans text-white bg-black selection:bg-brand-red selection:text-white flex flex-col justify-between p-6 overflow-x-hidden">
         <SplineHero url={SPLINE_URL} />
         
-        {/* Top Left Brand Logo */}
-        <nav className="absolute top-0 left-0 w-full p-6 z-20">
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-black tracking-tighter text-white cursor-pointer">와이튜브</h1>
-          </div>
-        </nav>
-
         {/* Main Centered Content */}
         <div className="relative z-10 flex flex-col items-center justify-center flex-grow w-full max-w-4xl mx-auto space-y-12 animate-float py-20">
           <div className="space-y-4 text-center">
