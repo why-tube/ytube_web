@@ -8,11 +8,17 @@ export interface PricingOption {
   label: string;
 }
 
+export interface PlanFeature {
+  text: string;
+  icon: string;
+}
+
 export interface Plan {
   id: string;
   name: string;
   period: string;
-  features: string[];
+  durationMonths: number;
+  features: PlanFeature[];
   bestValue?: boolean;
   options: {
     INDIA?: PricingOption;

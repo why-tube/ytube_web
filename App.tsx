@@ -180,22 +180,37 @@ const YOUTUBE_DATA: ServiceData = {
       id: 'yearly_individual',
       name: '1년 이용권 (개인)',
       period: '년',
+      durationMonths: 12,
       bestValue: true,
       options: {
-        KOREA: { price: 69000, originalPrice: 174000, label: '개인' }
+        KOREA: { price: 69000, originalPrice: 174000, label: '개인계정' }
       },
-      features: ['구글 공식 제휴사 리딤코드','가족 그룹 가입 없는 단독 사용', '기존 내 계정 그대로 독립 사용', '프라이버시 완벽 보호', 'YouTube Premium 모든 혜택 동일', '12개월 일시불 특가 할인']
+      features: [
+        { text: '구글 공식 제휴사 리딤코드', icon: 'fa-brands fa-google' },
+        { text: '가족 그룹 가입 없는 단독 사용', icon: 'fa-solid fa-user-lock' },
+        { text: '기존 내 계정 그대로 독립 사용', icon: 'fa-solid fa-address-card' },
+        { text: '프라이버시 완벽 보호', icon: 'fa-solid fa-shield-halved' },
+        { text: 'YouTube Premium 모든 혜택 동일', icon: 'fa-brands fa-youtube' },
+        { text: '12개월 일시불 특가 할인', icon: 'fa-solid fa-tag' }
+      ]
     },
     {
       id: 'monthly',
       name: '3개월 이용권(가족초대)',
       period: '월',
+      durationMonths: 3,
       bestValue: false,
       options: {
         INDIA: { price: 16500, originalPrice: 43500, label: '인도' },
         KOREA: { price: 18000, originalPrice: 43500, label: '한국' }
       },
-      features: ['가족 그룹 공유형 (초대 방식)', '복잡한 VPN 우회 과정 없음', '백그라운드 재생 및 오프라인 저장', 'YouTube Music 무료 이용 포함', '입금 즉시 3분 내 빠른 활성화']
+      features: [
+        { text: '가족 그룹 공유형 (초대 방식)', icon: 'fa-solid fa-users' },
+        { text: '복잡한 VPN 우회 과정 없음', icon: 'fa-solid fa-earth-americas' },
+        { text: '백그라운드 재생 및 오프라인 저장', icon: 'fa-solid fa-download' },
+        { text: 'YouTube Music 무료 이용 포함', icon: 'fa-solid fa-music' },
+        { text: '입금 즉시 3분 내 빠른 활성화', icon: 'fa-solid fa-bolt' }
+      ]
     }
   ],
   faqs: [
@@ -232,12 +247,19 @@ const DUOLINGO_DATA: ServiceData = {
       id: 'yearly_share',
       name: '1년 이용권',
       period: '년',
+      durationMonths: 12,
       bestValue: true,
       options: {
         // Removed INDIA (Individual) option
         KOREA: { price: 30000, originalPrice: 69000, label: '패밀리' } // Maps to 'Family Share'
       },
-      features: ['Super Duolingo의 모든 혜택 적용', '무제한 하트로 끊김 없는 학습', '광고 없는 쾌적한 환경', '오프라인 코스 다운로드', '입금 즉시 빠른 활성화']
+      features: [
+        { text: 'Super Duolingo의 모든 혜택 적용', icon: 'fa-solid fa-star' },
+        { text: '무제한 하트로 끊김 없는 학습', icon: 'fa-solid fa-heart' },
+        { text: '광고 없는 쾌적한 환경', icon: 'fa-solid fa-ban' },
+        { text: '오프라인 코스 다운로드', icon: 'fa-solid fa-download' },
+        { text: '입금 즉시 빠른 활성화', icon: 'fa-solid fa-bolt' }
+      ]
     }
   ],
   faqs: [
@@ -333,40 +355,40 @@ export const App: React.FC = () => {
             {/* YouTube Option */}
             <button 
               onClick={() => setSelectedService(YOUTUBE_DATA)}
-              className="group relative bg-[#111]/80 backdrop-blur-sm border border-white/10 rounded-3xl p-8 transition-all duration-500 hover:scale-105 hover:bg-[#151515] hover:border-brand-red/60 hover:shadow-[0_0_60px_rgba(255,0,0,0.3)] text-left flex flex-col gap-6 overflow-hidden"
+              className="group relative bg-[#111]/80 backdrop-blur-sm border border-white/10 rounded-3xl p-8 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.03] hover:bg-[#151515] hover:border-brand-red hover:shadow-[0_20px_60px_-10px_rgba(255,0,0,0.4)] active:scale-[0.98] active:translate-y-0 text-left flex flex-col gap-6 overflow-hidden"
             >
               {/* Decorative gradient blob */}
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-brand-red/10 blur-3xl rounded-full group-hover:bg-brand-red/20 transition-all duration-500" />
               
-              <div className="relative z-10 w-16 h-16 rounded-2xl bg-brand-red/10 flex items-center justify-center text-3xl text-brand-red group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-500 shadow-[0_0_20px_rgba(255,0,0,0.2)]">
+              <div className="relative z-10 w-16 h-16 rounded-2xl bg-brand-red/10 flex items-center justify-center text-3xl text-brand-red group-hover:scale-110 group-hover:bg-brand-red group-hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,0,0,0.2)]">
                 <i className="fa-brands fa-youtube"></i>
               </div>
               <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-brand-red transition-colors">YouTube Premium</h3>
-                <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors"> 월 5천원대 최저가로 시작하는 광고 없는 영상</p>
+                <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-brand-red transition-colors duration-300">YouTube Premium</h3>
+                <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300"> 월 5천원대 최저가로 시작하는 광고 없는 영상</p>
               </div>
-              <div className="relative z-10 mt-auto flex items-center text-brand-red font-bold text-sm group-hover:tracking-wide transition-all">
-                선택하기 <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+              <div className="relative z-10 mt-auto flex items-center text-brand-red font-bold text-sm group-hover:tracking-wide transition-all duration-300">
+                선택하기 <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform duration-300"></i>
               </div>
             </button>
 
             {/* Duolingo Option */}
             <button 
               onClick={() => setSelectedService(DUOLINGO_DATA)}
-              className="group relative bg-[#111]/80 backdrop-blur-sm border border-white/10 rounded-3xl p-8 transition-all duration-500 hover:scale-105 hover:bg-[#151515] hover:border-[#58CC02]/60 hover:shadow-[0_0_60px_rgba(88,204,2,0.3)] text-left flex flex-col gap-6 overflow-hidden"
+              className="group relative bg-[#111]/80 backdrop-blur-sm border border-white/10 rounded-3xl p-8 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.03] hover:bg-[#151515] hover:border-[#58CC02] hover:shadow-[0_20px_60px_-10px_rgba(88,204,2,0.4)] active:scale-[0.98] active:translate-y-0 text-left flex flex-col gap-6 overflow-hidden"
             >
               {/* Decorative gradient blob */}
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#58CC02]/10 blur-3xl rounded-full group-hover:bg-[#58CC02]/20 transition-all duration-500" />
 
-              <div className="relative z-10 w-16 h-16 rounded-2xl bg-[#58CC02]/10 flex items-center justify-center text-3xl text-[#58CC02] group-hover:scale-110 group-hover:bg-[#58CC02] group-hover:text-white transition-all duration-500 shadow-[0_0_20px_rgba(88,204,2,0.2)]">
+              <div className="relative z-10 w-16 h-16 rounded-2xl bg-[#58CC02]/10 flex items-center justify-center text-3xl text-[#58CC02] group-hover:scale-110 group-hover:bg-[#58CC02] group-hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(88,204,2,0.2)]">
                 <i className="fa-solid fa-feather"></i>
               </div>
               <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-[#58CC02] transition-colors">Super Duolingo</h3>
-                <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">무제한 하트로 배우는 가장 빠른 언어 학습</p>
+                <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-[#58CC02] transition-colors duration-300">Super Duolingo</h3>
+                <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300">무제한 하트로 배우는 가장 빠른 언어 학습</p>
               </div>
-              <div className="relative z-10 mt-auto flex items-center text-[#58CC02] font-bold text-sm group-hover:tracking-wide transition-all">
-                선택하기 <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+              <div className="relative z-10 mt-auto flex items-center text-[#58CC02] font-bold text-sm group-hover:tracking-wide transition-all duration-300">
+                선택하기 <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform duration-300"></i>
               </div>
             </button>
           </div>
