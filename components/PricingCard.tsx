@@ -39,7 +39,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect, themeC
         boxShadow: plan.bestValue ? `0 25px 50px -12px ${themeColor}66` : undefined
       }}
     >
-      <div className="relative h-full bg-[#111] rounded-xl p-5 md:p-6 flex flex-col gap-5 border border-white/10 overflow-hidden">
+      <div className="relative h-full bg-[#111] rounded-xl p-4 md:p-5 flex flex-col gap-5 border border-white/10 overflow-hidden">
         {plan.bestValue && (
           <div 
             className="absolute top-0 right-0 text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded-bl-xl shadow-lg"

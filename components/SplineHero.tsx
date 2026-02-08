@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface SplineHeroProps {
   url: string;
@@ -7,6 +7,7 @@ interface SplineHeroProps {
 export const SplineHero: React.FC<SplineHeroProps> = ({ url }) => {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [isLoaded, setIsLoaded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Trigger animation after mount
@@ -17,8 +18,29 @@ export const SplineHero: React.FC<SplineHeroProps> = ({ url }) => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (containerRef.current) {
+        const scrollY = window.scrollY;
+        // Parallax effect: moves the background down at half the scroll speed
+        // This makes the background appear to move slower than the foreground content
+        requestAnimationFrame(() => {
+          if (containerRef.current) {
+            containerRef.current.style.transform = `translate3d(0, ${scrollY * 0.5}px, 0)`;
+          }
+        });
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="absolute top-0 left-0 w-full h-[110vh] z-0 overflow-hidden pointer-events-none bg-black opacity-80">
+    <div 
+      ref={containerRef}
+      className="absolute top-0 left-0 w-full h-[120vh] z-0 overflow-hidden pointer-events-none bg-black opacity-80 will-change-transform"
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00000080] to-black z-10" />
       {/* 
         Wrapper for the zoom animation.

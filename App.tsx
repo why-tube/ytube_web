@@ -482,7 +482,7 @@ export const App: React.FC = () => {
           {/* Centered Flex Layout for Pricing Cards */}
           <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto">
             {currentData.plans.map(plan => (
-              <div key={plan.id} className="w-full max-w-[360px]">
+              <div key={plan.id} className="w-full max-w-[320px]">
                 <PricingCard 
                   plan={plan} 
                   onSelect={handlePlanSelect} 
