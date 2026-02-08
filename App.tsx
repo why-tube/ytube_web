@@ -192,8 +192,8 @@ const YOUTUBE_DATA: ServiceData = {
       period: '월',
       bestValue: false,
       options: {
-        INDIA: { price: 18000, originalPrice: 43500, label: '인도' },
-        KOREA: { price: 16500, originalPrice: 43500, label: '한국' }
+        INDIA: { price: 16500, originalPrice: 43500, label: '인도' },
+        KOREA: { price: 18000, originalPrice: 43500, label: '한국' }
       },
       features: ['가족 그룹 공유형 (초대 방식)', '복잡한 VPN 우회 과정 없음', '백그라운드 재생 및 오프라인 저장', 'YouTube Music 무료 이용 포함', '입금 즉시 3분 내 빠른 활성화']
     }
